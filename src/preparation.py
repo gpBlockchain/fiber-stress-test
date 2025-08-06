@@ -113,8 +113,8 @@ def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
                 }
             )
             if wait:
-                self.wait_payment_state(
-                    fiber1, payment["payment_hash"], "Success", 600, 0.1
+                wait_payment_state(
+                    fiber1, payment["payment_hash"], "Success", 600, 0.05
                 )
             return payment["payment_hash"]
         except Exception as e:

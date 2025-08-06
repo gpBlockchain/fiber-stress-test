@@ -23,7 +23,7 @@ The `config.toml` file is the core of the test setup. It uses the TOML format. H
 
 ```toml
 [[fibers]]
-type = "center"
+type = "core"
 urls = ["http://127.0.0.1:9000"]
 
 [[fibers]]
@@ -45,7 +45,7 @@ duration = 10
 ```
 
 - **`[[fibers]]`**: Defines a group of nodes of the same type. The script will generate indexed names based on the `type` and the list of `urls` (e.g., `edge_0`, `edge_1`).
-    - `type`: The type of the fibers (e.g., `center`,`relay`, `edge`).
+    - `type`: The type of the fibers (e.g., `core`,`relay`, `edge`).
     - `urls`: A list of RPC endpoint URLs for each node in this group.
 
 - **`[[connect_to]]`**: Defines a group of channels to be opened from a single source node to multiple targets.
