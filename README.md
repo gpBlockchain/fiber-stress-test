@@ -100,12 +100,22 @@ duration = 10
       ```
       Cleans up by shutting down all the nodes defined in the `fibers` section.
 
+    - **Check Balance**:
+
+      ```bash
+      python main.py config.toml check_balance
+      ```
+      Calculates and prints the total capacity defined in the `connect_to` sections of the configuration.
+
 ### Example Workflow
 
 A typical workflow would be to run the commands in sequence:
 
 ```bash
 # 1. Setup connections
+
+python main.py config.toml check_balance
+
 python main.py config.toml connect_to
 
 # 2. Verify connections
@@ -114,7 +124,10 @@ python main.py config.toml check_connect
 # 3. Run the transaction load test
 python main.py config.toml transfer
 
-# 4. Cleanup
+# 4. Run the transaction load test
+python main.py config.toml transfer
+
+# 5. Cleanup
 python main.py config.toml shutdown
 ```
 
