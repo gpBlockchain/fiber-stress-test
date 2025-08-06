@@ -1,0 +1,2132 @@
+[ckb]
+url = "http://localhost:8114"
+[[fibers]]
+type="core"
+urls=["http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083"]
+
+[[fibers]]
+type="relay"
+urls=["http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083"]
+
+[[fibers]]
+type="edge"
+urls=["http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085",
+"http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083","http://localhost:8084","http://localhost:8085","http://localhost:8080","http://localhost:8081","http://localhost:8082","http://localhost:8083"]
+
+
+[[connect_to]]
+id = "core_0"
+targets = [ "core_5", "core_7", "core_9", "core_10", "core_2", "core_3", "core_12", "core_13", "core_11", "core_4", "core_6",]
+capacitys = [ 1955540, 1120394, 1442728, 1776792, 1346007, 1404559, 1587920, 1910421, 1837413, 1050152, 1195645,]
+
+
+[[connect_to]]
+id = "core_1"
+targets = [ "core_8", "core_6", "core_4", "core_12", "core_9", "core_7", "core_11", "core_3", "core_2",]
+capacitys = [ 1608043, 1606149, 1406960, 1779888, 1567342, 1331234, 1324930, 1159908, 1093635,]
+
+
+[[connect_to]]
+id = "core_2"
+targets = [ "core_7", "core_1", "core_13", "core_11", "core_10", "core_12", "core_9", "core_4", "core_6", "core_8",]
+capacitys = [ 1469772, 1698918, 1235089, 1087300, 1057666, 1311771, 1095114, 1588057, 1777906, 1348875,]
+
+
+[[connect_to]]
+id = "core_3"
+targets = [ "core_11", "core_7", "core_8", "core_5", "core_9", "core_6", "core_12", "core_4", "core_1", "core_13", "core_0",]
+capacitys = [ 1276272, 1384201, 1991304, 1343327, 1582029, 1484714, 1451898, 1382923, 1216391, 1105316, 1378649,]
+
+
+[[connect_to]]
+id = "core_4"
+targets = [ "core_1", "core_12", "core_13", "core_5", "core_9", "core_2", "core_6", "core_3", "core_11",]
+capacitys = [ 1043531, 1692100, 1227714, 1257732, 1185614, 1156901, 1660055, 1662010, 1984470,]
+
+
+[[connect_to]]
+id = "core_5"
+type = "core"
+targets = [ "core_4", "core_9", "core_10", "core_13", "core_12", "core_6", "core_7", "core_11",]
+capacitys = [ 1568815, 1805954, 1165502, 1156707, 1712649, 1557489, 1971963, 1253571,]
+
+
+[[connect_to]]
+id = "core_6"
+type = "core"
+targets = [ "core_3", "core_2", "core_4", "core_9", "core_1", "core_12", "core_0", "core_10",]
+capacitys = [ 1160326, 1641724, 1264847, 1375449, 1063811, 1453790, 1591076, 1955167,]
+
+
+[[connect_to]]
+id = "core_7"
+targets = [ "core_2", "core_4", "core_1", "core_5", "core_9", "core_0", "core_13", "core_12",]
+capacitys = [ 1817361, 1129526, 1135705, 1294708, 1118746, 1448000, 1593584, 1365969,]
+
+
+[[connect_to]]
+id = "core_8"
+targets = [ "core_0", "core_10", "core_11", "core_1", "core_2", "core_5", "core_4", "core_6", "core_13", "core_12", "core_9",]
+capacitys = [ 1685386, 1001383, 1036399, 1597816, 1053759, 1886297, 1383576, 1961214, 1403319, 1056923, 1180648,]
+
+
+[[connect_to]]
+id = "core_9"
+targets = [ "core_6", "core_1", "core_8", "core_2", "core_3", "core_12", "core_11", "core_4", "core_5", "core_7", "core_0",]
+capacitys = [ 1232469, 1579815, 1336543, 1757389, 1793088, 1553388, 1042793, 1924399, 1968024, 1172787, 1840883,]
+
+
+[[connect_to]]
+id = "core_10"
+targets = [ "core_4", "core_8", "core_9", "core_2", "core_11", "core_7", "core_0", "core_12",]
+capacitys = [ 1283596, 1828811, 1535062, 1672906, 1262282, 1317149, 1628750, 1216594,]
+
+
+[[connect_to]]
+id = "core_11"
+targets = [ "core_8", "core_12", "core_13", "core_9", "core_10", "core_6", "core_1", "core_4",]
+capacitys = [ 1058205, 1879184, 1440278, 1953751, 1040794, 1255301, 1207261, 1650857,]
+
+
+[[connect_to]]
+id = "core_12"
+targets = [ "core_9", "core_0", "core_4", "core_5", "core_3", "core_8", "core_7", "core_11", "core_6",]
+capacitys = [ 1695768, 1794638, 1892909, 1313191, 1700157, 1692391, 1983662, 1368645, 1700570,]
+
+
+[[connect_to]]
+id = "core_13"
+targets = [ "core_8", "core_0", "core_9", "core_7", "core_12", "core_5", "core_6", "core_2", "core_11", "core_10",]
+capacitys = [ 1321185, 1063287, 1200210, 1812382, 1440485, 1783890, 1505538, 1165334, 1799681, 1256627,]
+
+
+[[connect_to]]
+id = "relay_0"
+targets = [ "core_4", "core_12", "core_1", "relay_40", "relay_1", "relay_2", "relay_47", "relay_37", "relay_30", "relay_46", "relay_28",]
+capacitys = [ 418532, 317348, 853602, 339947, 757481, 724625, 496460, 227485, 687547, 432274, 902858,]
+
+
+[[connect_to]]
+id = "relay_1"
+targets = [ "core_6", "core_3", "core_0", "core_11", "relay_37", "relay_15", "relay_6", "relay_25", "relay_31",]
+capacitys = [ 968441, 676654, 124814, 564558, 144532, 219444, 204521, 738545, 332207,]
+
+
+[[connect_to]]
+id = "relay_2"
+targets = [ "core_2", "core_13", "core_3", "core_12", "relay_38", "relay_19", "relay_20", "relay_16", "relay_21", "relay_4", "relay_32", "relay_33",]
+capacitys = [ 385540, 325967, 226429, 534809, 463569, 278442, 984622, 156104, 810904, 251827, 844901, 959092,]
+
+
+[[connect_to]]
+id = "relay_3"
+targets = [ "core_3", "core_1", "core_11", "core_0", "core_8", "relay_10", "relay_33", "relay_21", "relay_46", "relay_42", "relay_44", "relay_28",]
+capacitys = [ 954972, 891075, 837597, 974262, 675220, 233250, 425692, 205822, 521069, 208582, 764587, 754982,]
+
+
+[[connect_to]]
+id = "relay_4"
+type = "relay"
+targets = [ "core_10", "core_4", "core_9", "relay_46", "relay_27", "relay_34", "relay_31", "relay_20", "relay_11", "relay_24", "relay_16",]
+capacitys = [ 544612, 774805, 332114, 843825, 518241, 684405, 653458, 628671, 480732, 368124, 323552,]
+
+
+[[connect_to]]
+id = "relay_5"
+type = "relay"
+targets = [ "core_11", "core_3", "relay_16", "relay_40", "relay_11", "relay_29", "relay_7", "relay_28", "relay_2", "relay_21", "relay_18", "relay_10", "relay_17", "relay_23",]
+capacitys = [ 695797, 587264, 886972, 795504, 809197, 979158, 884052, 523366, 488268, 754870, 883401, 207932, 511311, 729112,]
+
+
+[[connect_to]]
+id = "relay_6"
+type = "relay"
+targets = [ "core_7", "core_1", "core_12", "relay_34", "relay_18", "relay_7", "relay_16", "relay_22", "relay_0", "relay_45", "relay_20", "relay_23", "relay_24", "relay_35", "relay_38", "relay_12",]
+capacitys = [ 177632, 989747, 948404, 178997, 648810, 850952, 190164, 545861, 174268, 398135, 822170, 942347, 540521, 233253, 567457, 903716,]
+
+
+[[connect_to]]
+id = "relay_7"
+type = "relay"
+targets = [ "core_6", "core_12", "relay_25", "relay_45", "relay_46", "relay_4", "relay_47", "relay_34", "relay_31", "relay_42", "relay_21",]
+capacitys = [ 969730, 960421, 441979, 100599, 724528, 500133, 716957, 603288, 855448, 292918, 449151,]
+
+
+[[connect_to]]
+id = "relay_8"
+type = "relay"
+targets = [ "core_12", "core_11", "core_8", "core_0", "relay_22", "relay_41", "relay_17", "relay_28", "relay_30", "relay_32", "relay_46",]
+capacitys = [ 620472, 413595, 529854, 700595, 124782, 613079, 195505, 971673, 850950, 930624, 434053,]
+
+
+[[connect_to]]
+id = "relay_9"
+type = "relay"
+targets = [ "core_12", "core_11", "core_2", "relay_10", "relay_2", "relay_45", "relay_17", "relay_7", "relay_35",]
+capacitys = [ 260850, 967088, 777703, 821009, 421173, 103226, 338636, 528032, 105905,]
+
+
+[[connect_to]]
+id = "relay_10"
+type = "relay"
+targets = [ "core_3", "core_13", "relay_34", "relay_15", "relay_44", "relay_23", "relay_26", "relay_14", "relay_47", "relay_27", "relay_41", "relay_43", "relay_32", "relay_21",]
+capacitys = [ 346862, 436969, 323199, 234367, 537716, 709417, 149013, 837682, 677849, 397496, 370618, 787952, 641701, 680834,]
+
+
+[[connect_to]]
+id = "relay_11"
+type = "relay"
+targets = [ "core_1", "core_8", "relay_30", "relay_9", "relay_25", "relay_0", "relay_15", "relay_44", "relay_27", "relay_2", "relay_39", "relay_45",]
+capacitys = [ 338984, 918186, 191891, 283302, 422703, 942299, 428330, 580659, 237566, 511138, 991188, 180367,]
+
+
+[[connect_to]]
+id = "relay_12"
+type = "relay"
+targets = [ "core_3", "core_6", "core_2", "core_0", "relay_5", "relay_30", "relay_43", "relay_36", "relay_40", "relay_16", "relay_20",]
+capacitys = [ 438633, 939171, 269321, 614810, 958627, 629036, 311904, 988363, 128864, 343767, 170829,]
+
+
+[[connect_to]]
+id = "relay_13"
+type = "relay"
+targets = [ "core_5", "core_12", "core_9", "relay_39", "relay_24", "relay_33", "relay_43", "relay_0",]
+capacitys = [ 392203, 857572, 152251, 545612, 695796, 607100, 295007, 499909,]
+
+
+[[connect_to]]
+id = "relay_14"
+type = "relay"
+targets = [ "core_1", "core_12", "core_2", "relay_38", "relay_11", "relay_47", "relay_32", "relay_17", "relay_33", "relay_37", "relay_31", "relay_25", "relay_8", "relay_3", "relay_0", "relay_2",]
+capacitys = [ 126313, 588889, 202149, 706727, 508449, 658474, 360194, 954127, 423193, 598283, 383773, 392954, 938478, 202424, 443245, 545719,]
+
+
+[[connect_to]]
+id = "relay_15"
+type = "relay"
+targets = [ "core_12", "core_7", "core_0", "core_9", "core_3", "relay_26", "relay_46", "relay_29", "relay_24", "relay_43", "relay_45", "relay_39",]
+capacitys = [ 862886, 556528, 829805, 206634, 857014, 323336, 936775, 476586, 407133, 773323, 840916, 579668,]
+
+
+[[connect_to]]
+id = "relay_16"
+type = "relay"
+targets = [ "core_13", "core_4", "core_9", "core_12", "core_3", "relay_15", "relay_10", "relay_43", "relay_47", "relay_14", "relay_42", "relay_37", "relay_11", "relay_28", "relay_29", "relay_41",]
+capacitys = [ 404615, 707535, 569129, 895862, 817521, 423677, 470761, 391221, 111055, 292708, 228378, 898607, 394410, 335657, 361192, 189713,]
+
+
+[[connect_to]]
+id = "relay_17"
+type = "relay"
+targets = [ "core_1", "core_4", "core_7", "core_2", "core_12", "relay_5", "relay_9", "relay_21", "relay_36", "relay_16", "relay_46", "relay_12", "relay_37", "relay_18", "relay_15",]
+capacitys = [ 492372, 252143, 269744, 885023, 514683, 530322, 399183, 396682, 806038, 355144, 943705, 592139, 946386, 275885, 935818,]
+
+
+[[connect_to]]
+id = "relay_18"
+type = "relay"
+targets = [ "core_10", "core_4", "relay_46", "relay_25", "relay_14", "relay_31", "relay_38", "relay_2", "relay_1", "relay_37", "relay_3",]
+capacitys = [ 907999, 286190, 997969, 316205, 291226, 931352, 852909, 190428, 826819, 211106, 308899,]
+
+
+[[connect_to]]
+id = "relay_19"
+type = "relay"
+targets = [ "core_6", "core_9", "core_13", "core_8", "relay_15", "relay_40", "relay_24", "relay_25", "relay_33", "relay_29", "relay_20", "relay_11", "relay_5",]
+capacitys = [ 808942, 779329, 740507, 192376, 826350, 395421, 376206, 594410, 797555, 347679, 772443, 502626, 303866,]
+
+
+[[connect_to]]
+id = "relay_20"
+type = "relay"
+targets = [ "core_8", "core_10", "core_11", "core_7", "core_1", "relay_3", "relay_0", "relay_43", "relay_38", "relay_35", "relay_25", "relay_15",]
+capacitys = [ 414479, 738422, 143408, 475213, 815580, 376316, 350174, 265312, 973137, 847499, 508890, 112133,]
+
+
+[[connect_to]]
+id = "relay_21"
+type = "relay"
+targets = [ "core_6", "core_2", "core_4", "core_1", "core_0", "relay_19", "relay_39", "relay_43", "relay_0", "relay_40", "relay_11", "relay_2", "relay_27", "relay_31", "relay_12",]
+capacitys = [ 539253, 845740, 357968, 640281, 208469, 393515, 575180, 972244, 765032, 537048, 176355, 403946, 449810, 825837, 687935,]
+
+
+[[connect_to]]
+id = "relay_22"
+type = "relay"
+targets = [ "core_10", "core_3", "core_5", "core_0", "core_4", "relay_23", "relay_27", "relay_0", "relay_10", "relay_24", "relay_9", "relay_17",]
+capacitys = [ 639526, 558401, 292115, 986395, 316489, 613566, 367626, 818985, 273688, 368807, 631130, 571188,]
+
+
+[[connect_to]]
+id = "relay_23"
+type = "relay"
+targets = [ "core_11", "core_5", "core_1", "core_0", "relay_36", "relay_37", "relay_4", "relay_2", "relay_34", "relay_29", "relay_24", "relay_8", "relay_35",]
+capacitys = [ 468305, 452222, 464705, 623362, 922837, 373323, 133987, 583317, 593679, 423080, 859942, 537740, 705965,]
+
+
+[[connect_to]]
+id = "relay_24"
+type = "relay"
+targets = [ "core_1", "core_12", "core_2", "core_6", "core_11", "relay_13", "relay_11", "relay_25", "relay_15", "relay_18",]
+capacitys = [ 391217, 700529, 624976, 851065, 952435, 372397, 710453, 700715, 958405, 436389,]
+
+
+[[connect_to]]
+id = "relay_25"
+type = "relay"
+targets = [ "core_11", "core_8", "core_1", "relay_29", "relay_16", "relay_19", "relay_22", "relay_4", "relay_21",]
+capacitys = [ 882801, 745825, 425377, 614589, 426367, 997542, 981505, 182993, 252153,]
+
+
+[[connect_to]]
+id = "relay_26"
+type = "relay"
+targets = [ "core_9", "core_3", "core_5", "core_0", "core_6", "relay_41", "relay_23", "relay_4", "relay_17", "relay_46", "relay_5", "relay_11", "relay_9", "relay_31", "relay_42",]
+capacitys = [ 919554, 846071, 849665, 895185, 828582, 808881, 612325, 304160, 814469, 889682, 640911, 571604, 276517, 837618, 104237,]
+
+
+[[connect_to]]
+id = "relay_27"
+type = "relay"
+targets = [ "core_13", "core_4", "core_8", "relay_37", "relay_32", "relay_24", "relay_44", "relay_16", "relay_33", "relay_42", "relay_28",]
+capacitys = [ 337985, 525969, 951950, 616504, 503431, 448743, 843543, 400510, 846406, 747743, 914236,]
+
+
+[[connect_to]]
+id = "relay_28"
+type = "relay"
+targets = [ "core_13", "core_11", "relay_40", "relay_6", "relay_29", "relay_1", "relay_9", "relay_31", "relay_39", "relay_13",]
+capacitys = [ 652715, 177601, 404496, 921642, 745557, 353567, 731557, 980573, 360723, 900959,]
+
+
+[[connect_to]]
+id = "relay_29"
+type = "relay"
+targets = [ "core_10", "core_0", "relay_21", "relay_43", "relay_35", "relay_34", "relay_40", "relay_33", "relay_0",]
+capacitys = [ 740610, 128633, 161449, 148413, 467488, 272831, 820336, 355324, 975628,]
+
+
+[[connect_to]]
+id = "relay_30"
+type = "relay"
+targets = [ "core_0", "core_4", "relay_25", "relay_44", "relay_8", "relay_4", "relay_31", "relay_37", "relay_38",]
+capacitys = [ 665124, 952123, 845804, 511862, 210630, 461461, 269073, 689539, 264113,]
+
+
+[[connect_to]]
+id = "relay_31"
+type = "relay"
+targets = [ "core_10", "core_9", "core_0", "core_12", "core_13", "relay_21", "relay_25", "relay_38", "relay_24", "relay_40", "relay_17", "relay_20", "relay_16", "relay_35",]
+capacitys = [ 489191, 518641, 602984, 133852, 430582, 319171, 888767, 711202, 865198, 291131, 163442, 636175, 864339, 320143,]
+
+
+[[connect_to]]
+id = "relay_32"
+type = "relay"
+targets = [ "core_7", "core_12", "core_0", "core_2", "core_6", "relay_2", "relay_43", "relay_9", "relay_33", "relay_5", "relay_25", "relay_42", "relay_17", "relay_36", "relay_7",]
+capacitys = [ 184407, 357482, 455124, 135284, 942386, 717000, 726219, 650076, 330172, 110628, 724574, 598103, 291542, 192956, 119025,]
+
+
+[[connect_to]]
+id = "relay_33"
+type = "relay"
+targets = [ "core_7", "core_11", "relay_12", "relay_25", "relay_4", "relay_13", "relay_24", "relay_3", "relay_39", "relay_16", "relay_22", "relay_40", "relay_21", "relay_26", "relay_36",]
+capacitys = [ 703107, 611615, 997814, 939791, 616926, 469899, 668632, 594860, 764620, 593614, 750309, 803532, 991220, 948978, 495606,]
+
+
+[[connect_to]]
+id = "relay_34"
+type = "relay"
+targets = [ "core_13", "core_6", "core_7", "core_0", "relay_33", "relay_15", "relay_38", "relay_10", "relay_43", "relay_16", "relay_3", "relay_39", "relay_36", "relay_37", "relay_27",]
+capacitys = [ 702982, 419556, 880530, 303476, 792149, 233380, 132798, 975622, 114532, 164137, 225752, 939354, 950545, 744259, 973205,]
+
+
+[[connect_to]]
+id = "relay_35"
+type = "relay"
+targets = [ "core_7", "core_12", "core_3", "core_13", "relay_37", "relay_14", "relay_26", "relay_25", "relay_8", "relay_45", "relay_46", "relay_20", "relay_34", "relay_29", "relay_32",]
+capacitys = [ 125032, 225973, 475534, 473892, 606946, 157715, 454470, 542952, 800396, 385387, 258202, 523495, 759778, 898803, 288677,]
+
+
+[[connect_to]]
+id = "relay_36"
+type = "relay"
+targets = [ "core_11", "core_9", "core_7", "relay_35", "relay_33", "relay_19", "relay_26", "relay_3",]
+capacitys = [ 783237, 687695, 556173, 623559, 421189, 469165, 716673, 104824,]
+
+
+[[connect_to]]
+id = "relay_37"
+type = "relay"
+targets = [ "core_11", "core_1", "relay_3", "relay_17", "relay_24", "relay_11", "relay_16", "relay_31", "relay_42", "relay_19",]
+capacitys = [ 921934, 990303, 559244, 575181, 126575, 963718, 923625, 280727, 593122, 174112,]
+
+
+[[connect_to]]
+id = "relay_38"
+type = "relay"
+targets = [ "core_13", "core_1", "relay_27", "relay_2", "relay_18", "relay_10", "relay_45", "relay_42",]
+capacitys = [ 110215, 834146, 945684, 834322, 817786, 837141, 820755, 295748,]
+
+
+[[connect_to]]
+id = "relay_39"
+type = "relay"
+targets = [ "core_9", "core_7", "core_2", "core_12", "relay_47", "relay_29", "relay_1", "relay_21", "relay_32", "relay_11", "relay_35", "relay_10", "relay_43",]
+capacitys = [ 396462, 772267, 324849, 195827, 659354, 360366, 502347, 222894, 329933, 280156, 300211, 216098, 396312,]
+
+
+[[connect_to]]
+id = "relay_40"
+type = "relay"
+targets = [ "core_13", "core_7", "core_5", "relay_18", "relay_45", "relay_33", "relay_19", "relay_20", "relay_5", "relay_16", "relay_43", "relay_9", "relay_41",]
+capacitys = [ 166243, 591060, 476387, 796171, 786543, 217166, 567236, 669322, 387858, 160747, 275022, 507925, 897477,]
+
+
+[[connect_to]]
+id = "relay_41"
+type = "relay"
+targets = [ "core_1", "core_6", "core_12", "core_7", "relay_3", "relay_8", "relay_35", "relay_45", "relay_24", "relay_16", "relay_44", "relay_42", "relay_1", "relay_20", "relay_28", "relay_9",]
+capacitys = [ 910691, 547227, 586913, 982340, 880270, 328636, 429580, 931047, 173734, 723947, 574954, 474842, 806185, 761700, 252785, 201341,]
+
+
+[[connect_to]]
+id = "relay_42"
+type = "relay"
+targets = [ "core_9", "core_0", "core_6", "core_8", "core_1", "relay_12", "relay_13", "relay_20", "relay_39", "relay_27", "relay_47", "relay_16", "relay_0",]
+capacitys = [ 932243, 397817, 956467, 692925, 488153, 638927, 763554, 539268, 597517, 608585, 668080, 912890, 122183,]
+
+
+[[connect_to]]
+id = "relay_43"
+type = "relay"
+targets = [ "core_12", "core_1", "core_5", "core_0", "relay_39", "relay_25", "relay_35", "relay_37", "relay_15", "relay_16", "relay_38", "relay_18", "relay_0", "relay_20", "relay_4", "relay_31",]
+capacitys = [ 971304, 503642, 496253, 911728, 784137, 238956, 752327, 318385, 325983, 304899, 555326, 825426, 211234, 541514, 733887, 883511,]
+
+
+[[connect_to]]
+id = "relay_44"
+type = "relay"
+targets = [ "core_2", "core_4", "core_7", "core_0", "relay_30", "relay_29", "relay_0", "relay_18", "relay_31", "relay_26", "relay_39",]
+capacitys = [ 896124, 540435, 989169, 690059, 458372, 699390, 466295, 399849, 783356, 731489, 548293,]
+
+
+[[connect_to]]
+id = "relay_45"
+type = "relay"
+targets = [ "core_2", "core_0", "core_11", "core_10", "core_3", "relay_31", "relay_43", "relay_35", "relay_0", "relay_14", "relay_19", "relay_12", "relay_38", "relay_33", "relay_26", "relay_17", "relay_5", "relay_9",]
+capacitys = [ 168697, 435760, 534591, 872820, 500872, 516934, 471585, 566252, 484884, 375418, 347994, 210910, 264053, 735693, 836502, 675513, 127916, 455702,]
+
+
+[[connect_to]]
+id = "relay_46"
+type = "relay"
+targets = [ "core_2", "core_11", "core_4", "core_8", "relay_43", "relay_23", "relay_36", "relay_18", "relay_40",]
+capacitys = [ 736455, 928564, 186253, 738695, 190653, 236964, 261883, 339836, 202067,]
+
+
+[[connect_to]]
+id = "relay_47"
+type = "relay"
+targets = [ "core_6", "core_0", "relay_31", "relay_33", "relay_5", "relay_12", "relay_43", "relay_16", "relay_2", "relay_41", "relay_34", "relay_14", "relay_0", "relay_10", "relay_7",]
+capacitys = [ 301977, 798902, 714555, 433399, 710012, 732810, 780658, 555212, 427508, 669198, 378363, 550431, 627192, 105937, 135917,]
+
+
+[[connect_to]]
+id = "edge_0"
+
+targets = [ "core_13", "core_9",]
+capacitys = [ 185106, 79331,]
+
+
+[[connect_to]]
+id = "edge_1"
+
+targets = [ "relay_10",]
+capacitys = [ 74469,]
+
+
+[[connect_to]]
+id = "edge_2"
+
+targets = [ "relay_37",]
+capacitys = [ 11218,]
+
+
+[[connect_to]]
+id = "edge_3"
+
+targets = [ "core_9",]
+capacitys = [ 25939,]
+
+
+[[connect_to]]
+id = "edge_4"
+
+targets = [ "core_12", "core_5",]
+capacitys = [ 169402, 24732,]
+
+
+[[connect_to]]
+id = "edge_5"
+
+targets = [ "relay_7", "core_13",]
+capacitys = [ 169257, 127343,]
+
+
+[[connect_to]]
+id = "edge_6"
+
+targets = [ "relay_25", "core_9",]
+capacitys = [ 48511, 177494,]
+
+
+[[connect_to]]
+id = "edge_7"
+
+targets = [ "relay_16", "relay_23",]
+capacitys = [ 44348, 130498,]
+
+
+[[connect_to]]
+id = "edge_8"
+
+targets = [ "relay_8",]
+capacitys = [ 115729,]
+
+
+[[connect_to]]
+id = "edge_9"
+
+targets = [ "relay_44", "relay_15",]
+capacitys = [ 126459, 81387,]
+
+
+[[connect_to]]
+id = "edge_10"
+
+targets = [ "relay_33", "relay_16",]
+capacitys = [ 188277, 158528,]
+
+
+[[connect_to]]
+id = "edge_11"
+
+targets = [ "relay_47", "relay_10",]
+capacitys = [ 77809, 120185,]
+
+
+[[connect_to]]
+id = "edge_12"
+
+targets = [ "relay_29",]
+capacitys = [ 148070,]
+
+
+[[connect_to]]
+id = "edge_13"
+
+targets = [ "relay_5", "core_11",]
+capacitys = [ 71134, 53543,]
+
+
+[[connect_to]]
+id = "edge_14"
+
+targets = [ "relay_44", "relay_32",]
+capacitys = [ 186196, 130127,]
+
+
+[[connect_to]]
+id = "edge_15"
+
+targets = [ "relay_24",]
+capacitys = [ 83092,]
+
+
+[[connect_to]]
+id = "edge_16"
+
+targets = [ "relay_10",]
+capacitys = [ 139816,]
+
+
+[[connect_to]]
+id = "edge_17"
+
+targets = [ "relay_3",]
+capacitys = [ 19091,]
+
+
+[[connect_to]]
+id = "edge_18"
+
+targets = [ "core_5", "relay_46",]
+capacitys = [ 160613, 12036,]
+
+
+[[connect_to]]
+id = "edge_19"
+
+targets = [ "core_3",]
+capacitys = [ 125911,]
+
+
+[[connect_to]]
+id = "edge_20"
+
+targets = [ "relay_21",]
+capacitys = [ 114066,]
+
+
+[[connect_to]]
+id = "edge_21"
+
+targets = [ "core_4",]
+capacitys = [ 29931,]
+
+
+[[connect_to]]
+id = "edge_22"
+
+targets = [ "relay_23",]
+capacitys = [ 86511,]
+
+
+[[connect_to]]
+id = "edge_23"
+
+targets = [ "core_10", "core_8",]
+capacitys = [ 38731, 140561,]
+
+
+[[connect_to]]
+id = "edge_24"
+
+targets = [ "core_5", "core_13",]
+capacitys = [ 177035, 160589,]
+
+
+[[connect_to]]
+id = "edge_25"
+
+targets = [ "relay_9",]
+capacitys = [ 171165,]
+
+
+[[connect_to]]
+id = "edge_26"
+
+targets = [ "core_12",]
+capacitys = [ 95295,]
+
+
+[[connect_to]]
+id = "edge_27"
+
+targets = [ "relay_7",]
+capacitys = [ 160739,]
+
+
+[[connect_to]]
+id = "edge_28"
+
+targets = [ "core_12",]
+capacitys = [ 157472,]
+
+
+[[connect_to]]
+id = "edge_29"
+
+targets = [ "relay_37",]
+capacitys = [ 47314,]
+
+
+[[connect_to]]
+id = "edge_30"
+
+targets = [ "core_0", "core_12",]
+capacitys = [ 101250, 109200,]
+
+
+[[connect_to]]
+id = "edge_31"
+
+targets = [ "relay_12",]
+capacitys = [ 37111,]
+
+
+[[connect_to]]
+id = "edge_32"
+
+targets = [ "core_2", "core_12",]
+capacitys = [ 167068, 81489,]
+
+
+[[connect_to]]
+id = "edge_33"
+
+targets = [ "relay_17", "relay_23",]
+capacitys = [ 29299, 46459,]
+
+
+[[connect_to]]
+id = "edge_34"
+
+targets = [ "relay_6", "core_7",]
+capacitys = [ 184817, 39891,]
+
+
+[[connect_to]]
+id = "edge_35"
+
+targets = [ "core_11",]
+capacitys = [ 41657,]
+
+
+[[connect_to]]
+id = "edge_36"
+
+targets = [ "relay_22",]
+capacitys = [ 125100,]
+
+
+[[connect_to]]
+id = "edge_37"
+
+targets = [ "core_4", "relay_18",]
+capacitys = [ 117345, 56560,]
+
+
+[[connect_to]]
+id = "edge_38"
+
+targets = [ "core_5", "core_10",]
+capacitys = [ 46889, 110941,]
+
+
+[[connect_to]]
+id = "edge_39"
+
+targets = [ "relay_23",]
+capacitys = [ 130668,]
+
+
+[[connect_to]]
+id = "edge_40"
+
+targets = [ "relay_37", "relay_47",]
+capacitys = [ 146392, 33775,]
+
+
+[[connect_to]]
+id = "edge_41"
+
+targets = [ "relay_44", "relay_29",]
+capacitys = [ 83712, 124765,]
+
+
+[[connect_to]]
+id = "edge_42"
+
+targets = [ "relay_3",]
+capacitys = [ 87910,]
+
+
+[[connect_to]]
+id = "edge_43"
+
+targets = [ "relay_24",]
+capacitys = [ 43297,]
+
+
+[[connect_to]]
+id = "edge_44"
+
+targets = [ "relay_32",]
+capacitys = [ 130773,]
+
+
+[[connect_to]]
+id = "edge_45"
+
+targets = [ "relay_13",]
+capacitys = [ 77524,]
+
+
+[[connect_to]]
+id = "edge_46"
+
+targets = [ "relay_19", "relay_4",]
+capacitys = [ 122890, 173161,]
+
+
+[[connect_to]]
+id = "edge_47"
+
+targets = [ "relay_40",]
+capacitys = [ 106799,]
+
+
+[[connect_to]]
+id = "edge_48"
+
+targets = [ "relay_10",]
+capacitys = [ 43036,]
+
+
+[[connect_to]]
+id = "edge_49"
+
+targets = [ "relay_38", "relay_32",]
+capacitys = [ 46629, 140973,]
+
+
+[[connect_to]]
+id = "edge_50"
+
+targets = [ "relay_26",]
+capacitys = [ 105018,]
+
+
+[[connect_to]]
+id = "edge_51"
+
+targets = [ "relay_30", "relay_23",]
+capacitys = [ 168857, 198048,]
+
+
+[[connect_to]]
+id = "edge_52"
+
+targets = [ "relay_28",]
+capacitys = [ 138530,]
+
+
+[[connect_to]]
+id = "edge_53"
+
+targets = [ "core_7", "relay_42",]
+capacitys = [ 127784, 157041,]
+
+
+[[connect_to]]
+id = "edge_54"
+
+targets = [ "relay_44", "core_13",]
+capacitys = [ 57055, 192613,]
+
+
+[[connect_to]]
+id = "edge_55"
+
+targets = [ "relay_17",]
+capacitys = [ 19662,]
+
+
+[[connect_to]]
+id = "edge_56"
+
+targets = [ "core_2",]
+capacitys = [ 152038,]
+
+
+[[connect_to]]
+id = "edge_57"
+
+targets = [ "relay_35", "relay_6",]
+capacitys = [ 50441, 163965,]
+
+
+[[connect_to]]
+id = "edge_58"
+
+targets = [ "relay_13", "core_3",]
+capacitys = [ 103665, 194251,]
+
+
+[[connect_to]]
+id = "edge_59"
+
+targets = [ "relay_44", "core_10",]
+capacitys = [ 126926, 27401,]
+
+
+[[connect_to]]
+id = "edge_60"
+
+targets = [ "relay_11",]
+capacitys = [ 163378,]
+
+
+[[connect_to]]
+id = "edge_61"
+targets = [ "relay_33", "relay_15",]
+capacitys = [ 126848, 137514,]
+
+
+[[connect_to]]
+id = "edge_62"
+
+targets = [ "core_4",]
+capacitys = [ 108248,]
+
+
+[[connect_to]]
+id = "edge_63"
+
+targets = [ "relay_42", "core_4",]
+capacitys = [ 148532, 54891,]
+
+
+[[connect_to]]
+id = "edge_64"
+
+targets = [ "core_10",]
+capacitys = [ 172425,]
+
+
+[[connect_to]]
+id = "edge_65"
+
+targets = [ "relay_11",]
+capacitys = [ 129726,]
+
+
+[[connect_to]]
+id = "edge_66"
+
+targets = [ "relay_46", "core_3",]
+capacitys = [ 178564, 118200,]
+
+
+[[connect_to]]
+id = "edge_67"
+
+targets = [ "relay_24", "relay_34",]
+capacitys = [ 113234, 65429,]
+
+
+[[connect_to]]
+id = "edge_68"
+
+targets = [ "relay_9", "relay_15",]
+capacitys = [ 48459, 111402,]
+
+
+[[connect_to]]
+id = "edge_69"
+
+targets = [ "core_7",]
+capacitys = [ 196354,]
+
+
+[[connect_to]]
+id = "edge_70"
+
+targets = [ "relay_39", "relay_16",]
+capacitys = [ 93300, 90925,]
+
+
+[[connect_to]]
+id = "edge_71"
+
+targets = [ "relay_38", "relay_3",]
+capacitys = [ 77321, 188226,]
+
+
+[[connect_to]]
+id = "edge_72"
+
+targets = [ "relay_14",]
+capacitys = [ 198207,]
+
+
+[[connect_to]]
+id = "edge_73"
+
+targets = [ "relay_4",]
+capacitys = [ 118724,]
+
+
+[[connect_to]]
+id = "edge_74"
+
+targets = [ "relay_22",]
+capacitys = [ 183361,]
+
+
+[[connect_to]]
+id = "edge_75"
+
+targets = [ "relay_13", "relay_1",]
+capacitys = [ 168361, 12319,]
+
+
+[[connect_to]]
+id = "edge_76"
+
+targets = [ "relay_1", "core_3",]
+capacitys = [ 198807, 178450,]
+
+
+[[connect_to]]
+id = "edge_77"
+
+targets = [ "relay_11",]
+capacitys = [ 10716,]
+
+
+[[connect_to]]
+id = "edge_78"
+
+targets = [ "relay_38", "relay_5",]
+capacitys = [ 75297, 175477,]
+
+
+[[connect_to]]
+id = "edge_79"
+
+targets = [ "relay_7", "relay_36",]
+capacitys = [ 45455, 17806,]
+
+
+[[connect_to]]
+id = "edge_80"
+
+targets = [ "core_2", "relay_6",]
+capacitys = [ 24403, 170275,]
+
+
+[[connect_to]]
+id = "edge_81"
+
+targets = [ "relay_20", "relay_14",]
+capacitys = [ 58913, 161395,]
+
+
+[[connect_to]]
+id = "edge_82"
+
+targets = [ "relay_4",]
+capacitys = [ 116116,]
+
+
+[[connect_to]]
+id = "edge_83"
+
+targets = [ "relay_39", "relay_27",]
+capacitys = [ 11099, 31888,]
+
+
+[[connect_to]]
+id = "edge_84"
+
+targets = [ "relay_14", "relay_8",]
+capacitys = [ 116169, 192805,]
+
+
+[[connect_to]]
+id = "edge_85"
+
+targets = [ "relay_18",]
+capacitys = [ 113965,]
+
+
+[[connect_to]]
+id = "edge_86"
+
+targets = [ "relay_35", "relay_32",]
+capacitys = [ 194689, 96216,]
+
+
+[[connect_to]]
+id = "edge_87"
+
+targets = [ "relay_2", "core_6",]
+capacitys = [ 93085, 55220,]
+
+
+[[connect_to]]
+id = "edge_88"
+
+targets = [ "relay_26", "relay_34",]
+capacitys = [ 59729, 80242,]
+
+
+[[connect_to]]
+id = "edge_89"
+
+targets = [ "relay_1", "core_7",]
+capacitys = [ 27106, 153417,]
+
+
+[[connect_to]]
+id = "edge_90"
+
+targets = [ "relay_39", "relay_24",]
+capacitys = [ 123255, 128856,]
+
+
+[[connect_to]]
+id = "edge_91"
+
+targets = [ "relay_34",]
+capacitys = [ 26168,]
+
+
+[[connect_to]]
+id = "edge_92"
+
+targets = [ "relay_20", "core_5",]
+capacitys = [ 29744, 12357,]
+
+
+[[connect_to]]
+id = "edge_93"
+
+targets = [ "relay_40",]
+capacitys = [ 49605,]
+
+
+[[connect_to]]
+id = "edge_94"
+
+targets = [ "relay_37", "relay_4",]
+capacitys = [ 169907, 137850,]
+
+
+[[connect_to]]
+id = "edge_95"
+
+targets = [ "relay_32",]
+capacitys = [ 122012,]
+
+
+[[connect_to]]
+id = "edge_96"
+
+targets = [ "relay_0",]
+capacitys = [ 19856,]
+
+
+[[connect_to]]
+id = "edge_97"
+
+targets = [ "core_10", "relay_29",]
+capacitys = [ 129913, 67727,]
+
+
+[[connect_to]]
+id = "edge_98"
+
+targets = [ "relay_10",]
+capacitys = [ 72551,]
+
+
+[[connect_to]]
+id = "edge_99"
+
+targets = [ "core_4",]
+capacitys = [ 141741,]
+
+
+[[connect_to]]
+id = "edge_100"
+
+targets = [ "relay_38", "relay_17",]
+capacitys = [ 22810, 167152,]
+
+
+[[connect_to]]
+id = "edge_101"
+
+targets = [ "relay_12", "relay_11",]
+capacitys = [ 188370, 26648,]
+
+
+[[connect_to]]
+id = "edge_102"
+
+targets = [ "relay_33", "core_11",]
+capacitys = [ 59746, 116400,]
+
+
+[[connect_to]]
+id = "edge_103"
+
+targets = [ "relay_13",]
+capacitys = [ 53543,]
+
+
+[[connect_to]]
+id = "edge_104"
+
+targets = [ "relay_26", "relay_7",]
+capacitys = [ 159890, 46247,]
+
+
+[[connect_to]]
+id = "edge_105"
+
+targets = [ "relay_44", "relay_46",]
+capacitys = [ 31968, 77361,]
+
+
+[[connect_to]]
+id = "edge_106"
+
+targets = [ "core_8", "relay_45",]
+capacitys = [ 85766, 195913,]
+
+
+[[connect_to]]
+id = "edge_107"
+
+targets = [ "relay_13", "core_11",]
+capacitys = [ 177624, 146620,]
+
+
+[[connect_to]]
+id = "edge_108"
+
+targets = [ "relay_6",]
+capacitys = [ 120382,]
+
+
+[[connect_to]]
+id = "edge_109"
+
+targets = [ "relay_27", "relay_14",]
+capacitys = [ 129222, 154435,]
+
+
+[[connect_to]]
+id = "edge_110"
+
+targets = [ "core_12",]
+capacitys = [ 74075,]
+
+
+[[connect_to]]
+id = "edge_111"
+
+targets = [ "relay_46",]
+capacitys = [ 153993,]
+
+
+[[connect_to]]
+id = "edge_112"
+
+targets = [ "core_9",]
+capacitys = [ 184550,]
+
+
+[[connect_to]]
+id = "edge_113"
+
+targets = [ "relay_31",]
+capacitys = [ 170796,]
+
+
+[[connect_to]]
+id = "edge_114"
+
+targets = [ "relay_20", "core_7",]
+capacitys = [ 46025, 132853,]
+
+
+[[connect_to]]
+id = "edge_115"
+
+targets = [ "relay_31",]
+capacitys = [ 157280,]
+
+
+[[connect_to]]
+id = "edge_116"
+
+targets = [ "relay_27",]
+capacitys = [ 62916,]
+
+
+[[connect_to]]
+id = "edge_117"
+
+targets = [ "relay_30", "relay_9",]
+capacitys = [ 149678, 138046,]
+
+
+[[connect_to]]
+id = "edge_118"
+
+targets = [ "relay_9", "relay_13",]
+capacitys = [ 20470, 93812,]
+
+
+[[connect_to]]
+id = "edge_119"
+
+targets = [ "relay_9",]
+capacitys = [ 75789,]
+
+
+[[connect_to]]
+id = "edge_120"
+
+targets = [ "relay_33",]
+capacitys = [ 150881,]
+
+
+[[connect_to]]
+id = "edge_121"
+
+targets = [ "relay_37", "relay_9",]
+capacitys = [ 167949, 29014,]
+
+
+[[connect_to]]
+id = "edge_122"
+
+targets = [ "relay_10", "relay_13",]
+capacitys = [ 146676, 47605,]
+
+
+[[connect_to]]
+id = "edge_123"
+
+targets = [ "relay_18", "core_5",]
+capacitys = [ 58643, 141422,]
+
+
+[[connect_to]]
+id = "edge_124"
+
+targets = [ "core_1", "relay_35",]
+capacitys = [ 155498, 172316,]
+
+
+[[connect_to]]
+id = "edge_125"
+
+targets = [ "relay_16", "relay_22",]
+capacitys = [ 79811, 128001,]
+
+
+[[connect_to]]
+id = "edge_126"
+
+targets = [ "core_1",]
+capacitys = [ 127821,]
+
+
+[[connect_to]]
+id = "edge_127"
+
+targets = [ "relay_45", "core_2",]
+capacitys = [ 99792, 181816,]
+
+
+[[connect_to]]
+id = "edge_128"
+
+targets = [ "relay_42", "relay_20",]
+capacitys = [ 109148, 35909,]
+
+
+[[connect_to]]
+id = "edge_129"
+
+targets = [ "relay_29",]
+capacitys = [ 133117,]
+
+
+[[connect_to]]
+id = "edge_130"
+
+targets = [ "core_7", "core_4",]
+capacitys = [ 31439, 34883,]
+
+
+[[connect_to]]
+id = "edge_131"
+
+targets = [ "core_5", "relay_39",]
+capacitys = [ 59396, 81021,]
+
+
+[[connect_to]]
+id = "edge_132"
+
+targets = [ "relay_8",]
+capacitys = [ 185343,]
+
+
+[[connect_to]]
+id = "edge_133"
+
+targets = [ "relay_7",]
+capacitys = [ 19962,]
+
+
+[[connect_to]]
+id = "edge_134"
+
+targets = [ "relay_4",]
+capacitys = [ 191034,]
+
+
+[[connect_to]]
+id = "edge_135"
+
+targets = [ "relay_29", "relay_1",]
+capacitys = [ 120413, 49092,]
+
+
+[[connect_to]]
+id = "edge_136"
+
+targets = [ "relay_22", "relay_32",]
+capacitys = [ 173157, 25211,]
+
+
+[[connect_to]]
+id = "edge_137"
+
+targets = [ "core_0",]
+capacitys = [ 72972,]
+
+
+[[connect_to]]
+id = "edge_138"
+
+targets = [ "relay_22", "relay_23",]
+capacitys = [ 120045, 153484,]
+
+
+[[connect_to]]
+id = "edge_139"
+
+targets = [ "relay_16",]
+capacitys = [ 52075,]
+
+
+[[connect_to]]
+id = "edge_140"
+
+targets = [ "relay_9", "relay_27",]
+capacitys = [ 13872, 114747,]
+
+
+[[connect_to]]
+id = "edge_141"
+
+targets = [ "relay_8", "relay_22",]
+capacitys = [ 117447, 193960,]
+
+
+[[connect_to]]
+id = "edge_142"
+
+targets = [ "relay_47", "relay_39",]
+capacitys = [ 199447, 130589,]
+
+
+[[connect_to]]
+id = "edge_143"
+
+targets = [ "relay_5", "relay_4",]
+capacitys = [ 145144, 175007,]
+
+
+[[connect_to]]
+id = "edge_144"
+
+targets = [ "relay_15",]
+capacitys = [ 75960,]
+
+
+[[connect_to]]
+id = "edge_145"
+
+targets = [ "core_6",]
+capacitys = [ 68732,]
+
+
+[[connect_to]]
+id = "edge_146"
+
+targets = [ "relay_25", "core_4",]
+capacitys = [ 24936, 12915,]
+
+
+[[connect_to]]
+id = "edge_147"
+
+targets = [ "relay_1",]
+capacitys = [ 100488,]
+
+
+[[connect_to]]
+id = "edge_148"
+
+targets = [ "core_10", "relay_42",]
+capacitys = [ 77289, 167071,]
+
+
+[[connect_to]]
+id = "edge_149"
+
+targets = [ "core_3", "relay_34",]
+capacitys = [ 36405, 10211,]
+
+
+[[connect_to]]
+id = "edge_150"
+
+targets = [ "relay_26",]
+capacitys = [ 102362,]
+
+
+[[connect_to]]
+id = "edge_151"
+
+targets = [ "relay_6",]
+capacitys = [ 74497,]
+
+
+[[connect_to]]
+id = "edge_152"
+
+targets = [ "relay_29",]
+capacitys = [ 31050,]
+
+
+[[connect_to]]
+id = "edge_153"
+
+targets = [ "relay_32",]
+capacitys = [ 23592,]
+
+
+[[connect_to]]
+id = "edge_154"
+
+targets = [ "relay_6",]
+capacitys = [ 40355,]
+
+
+[[connect_to]]
+id = "edge_155"
+
+targets = [ "relay_13",]
+capacitys = [ 154465,]
+
+
+[[connect_to]]
+id = "edge_156"
+
+targets = [ "relay_40", "relay_0",]
+capacitys = [ 106296, 53049,]
+
+
+[[connect_to]]
+id = "edge_157"
+
+targets = [ "relay_42",]
+capacitys = [ 95515,]
+
+
+[[connect_to]]
+id = "edge_158"
+
+targets = [ "relay_24",]
+capacitys = [ 137965,]
+
+
+[[connect_to]]
+id = "edge_159"
+
+targets = [ "core_8", "relay_47",]
+capacitys = [ 81201, 164340,]
+
+
+[[connect_to]]
+id = "edge_160"
+
+targets = [ "core_8", "relay_26",]
+capacitys = [ 74138, 16816,]
+
+
+[[connect_to]]
+id = "edge_161"
+
+targets = [ "relay_42",]
+capacitys = [ 102792,]
+
+
+[[connect_to]]
+id = "edge_162"
+
+targets = [ "core_9",]
+capacitys = [ 67142,]
+
+
+[[connect_to]]
+id = "edge_163"
+
+targets = [ "relay_35",]
+capacitys = [ 71768,]
+
+
+[[connect_to]]
+id = "edge_164"
+
+targets = [ "relay_23", "core_10",]
+capacitys = [ 58572, 68726,]
+
+
+[[connect_to]]
+id = "edge_165"
+
+targets = [ "relay_3",]
+capacitys = [ 44614,]
+
+
+[[connect_to]]
+id = "edge_166"
+
+targets = [ "relay_20",]
+capacitys = [ 23722,]
+
+
+[[connect_to]]
+id = "edge_167"
+
+targets = [ "relay_1", "core_1",]
+capacitys = [ 11555, 198280,]
+
+
+[[connect_to]]
+id = "edge_168"
+
+targets = [ "core_2",]
+capacitys = [ 190787,]
+
+
+[[connect_to]]
+id = "edge_169"
+
+targets = [ "relay_45",]
+capacitys = [ 161652,]
+
+
+[[connect_to]]
+id = "edge_170"
+
+targets = [ "relay_20",]
+capacitys = [ 106269,]
+
+
+[[connect_to]]
+id = "edge_171"
+
+targets = [ "core_2",]
+capacitys = [ 110882,]
+
+
+[[connect_to]]
+id = "edge_172"
+targets = [ "relay_15", "relay_28",]
+capacitys = [ 103150, 99956,]
+
+
+[[connect_to]]
+id = "edge_173"
+targets = [ "relay_13",]
+capacitys = [ 186276,]
+
+
+[[connect_to]]
+id = "edge_174"
+targets = [ "core_6", "relay_1",]
+capacitys = [ 32176, 101748,]
+
+
+[[connect_to]]
+id = "edge_175"
+targets = [ "core_2",]
+capacitys = [ 32527,]
+
+
+[[connect_to]]
+id = "edge_176"
+targets = [ "core_12", "relay_44",]
+capacitys = [ 134871, 87625,]
+
+
+[[connect_to]]
+id = "edge_177"
+targets = [ "relay_1",]
+capacitys = [ 10606,]
+
+
+[[connect_to]]
+id = "edge_178"
+targets = [ "relay_16", "core_7",]
+capacitys = [ 155020, 23313,]
+
+
+[[connect_to]]
+id = "edge_179"
+targets = [ "core_3",]
+capacitys = [ 66298,]
+
+
+[[connect_to]]
+id = "edge_180"
+targets = [ "relay_8", "relay_37",]
+capacitys = [ 137799, 179241,]
+
+
+[[connect_to]]
+id = "edge_181"
+targets = [ "relay_37", "core_2",]
+capacitys = [ 110175, 174766,]
+
+
+[[connect_to]]
+id = "edge_182"
+targets = [ "relay_42",]
+capacitys = [ 138280,]
+
+
+[[connect_to]]
+id = "edge_183"
+targets = [ "core_1", "relay_0",]
+capacitys = [ 109680, 84781,]
+
+
+[[connect_to]]
+id = "edge_184"
+targets = [ "relay_17", "relay_33",]
+capacitys = [ 73539, 129544,]
+
+
+[[connect_to]]
+id = "edge_185"
+targets = [ "relay_43", "relay_33",]
+capacitys = [ 13329, 36348,]
+
+
+[[connect_to]]
+id = "edge_186"
+targets = [ "relay_10", "relay_18",]
+capacitys = [ 145302, 49449,]
+
+
+[[connect_to]]
+id = "edge_187"
+targets = [ "relay_45", "relay_36",]
+capacitys = [ 12412, 184032,]
+
+
+[[connect_to]]
+id = "edge_188"
+targets = [ "relay_18",]
+capacitys = [ 104694,]
+
+
+[[connect_to]]
+id = "edge_189"
+targets = [ "relay_23",]
+capacitys = [ 198708,]
+
+
+[[connect_to]]
+id = "edge_190"
+targets = [ "relay_31",]
+capacitys = [ 148098,]
+
+
+[[connect_to]]
+id = "edge_191"
+targets = [ "relay_45", "core_6",]
+capacitys = [ 125442, 119387,]
+
+
+[[connect_to]]
+id = "edge_192"
+targets = [ "relay_22", "relay_0",]
+capacitys = [ 106383, 163909,]
+
+
+[[connect_to]]
+id = "edge_193"
+targets = [ "core_4",]
+capacitys = [ 111554,]
+
+
+[[connect_to]]
+id = "edge_194"
+targets = [ "relay_20", "relay_2",]
+capacitys = [ 42604, 112348,]
+
+
+[[connect_to]]
+id = "edge_195"
+targets = [ "relay_31",]
+capacitys = [ 96556,]
+
+
+[[connect_to]]
+id = "edge_196"
+targets = [ "core_11",]
+capacitys = [ 148475,]
+
+
+[[connect_to]]
+id = "edge_197"
+targets = [ "relay_29",]
+capacitys = [ 72520,]
+
+
+[[connect_to]]
+id = "edge_198"
+targets = [ "core_4",]
+capacitys = [ 92144,]
+
+
+[[connect_to]]
+id = "edge_199"
+targets = [ "relay_2",]
+capacitys = [ 129499,]
+
+
+[[connect_to]]
+id = "edge_200"
+targets = [ "core_0",]
+capacitys = [ 190940,]
+
+
+[[connect_to]]
+id = "edge_201"
+targets = [ "relay_20",]
+capacitys = [ 157161,]
+
+
+[[connect_to]]
+id = "edge_202"
+targets = [ "relay_5", "core_0",]
+capacitys = [ 94859, 97112,]
+
+
+[[connect_to]]
+id = "edge_203"
+targets = [ "core_2", "relay_31",]
+capacitys = [ 31032, 142380,]
+
+
+[[connect_to]]
+id = "edge_204"
+targets = [ "relay_46", "core_7",]
+capacitys = [ 84130, 171512,]
+
+
+[[connect_to]]
+id = "edge_205"
+targets = [ "core_2",]
+capacitys = [ 152376,]
+
+
+[[connect_to]]
+id = "edge_206"
+targets = [ "relay_45", "relay_21",]
+capacitys = [ 179440, 132430,]
+
+
+[[connect_to]]
+id = "edge_207"
+targets = [ "relay_46", "relay_9",]
+capacitys = [ 173955, 195310,]
+
+
+[[connect_to]]
+id = "edge_208"
+targets = [ "core_7",]
+capacitys = [ 54290,]
+
+
+[[connect_to]]
+id = "edge_209"
+targets = [ "relay_8", "relay_41",]
+capacitys = [ 39545, 95785,]
+
+
+[[connect_to]]
+id = "edge_210"
+targets = [ "relay_27", "relay_38",]
+capacitys = [ 199305, 49056,]
+
+
+[[connect_to]]
+id = "edge_211"
+targets = [ "relay_23",]
+capacitys = [ 30928,]
+
+
+[[connect_to]]
+id = "edge_212"
+targets = [ "relay_4", "core_4",]
+capacitys = [ 58313, 184451,]
+
+
+[[connect_to]]
+id = "edge_213"
+targets = [ "relay_12", "core_9",]
+capacitys = [ 172389, 160864,]
+
+
+[[connect_to]]
+id = "edge_214"
+targets = [ "relay_0",]
+capacitys = [ 161004,]
+
+
+[[connect_to]]
+id = "edge_215"
+targets = [ "relay_6",]
+capacitys = [ 174027,]
+
+
+[[connect_to]]
+id = "edge_216"
+targets = [ "core_4",]
+capacitys = [ 21750,]
+
+
+[[connect_to]]
+id = "edge_217"
+targets = [ "relay_26",]
+capacitys = [ 70821,]
+
+
+[[connect_to]]
+id = "edge_218"
+targets = [ "relay_24",]
+capacitys = [ 75948,]
+
+
+[[connect_to]]
+id = "edge_219"
+targets = [ "relay_6", "relay_47",]
+capacitys = [ 98220, 151842,]
+
+
+[[connect_to]]
+id = "edge_220"
+targets = [ "relay_29",]
+capacitys = [ 171953,]
+
+
+[[connect_to]]
+id = "edge_221"
+targets = [ "core_1",]
+capacitys = [ 125205,]
+
+
+[[connect_to]]
+id = "edge_222"
+targets = [ "core_10", "relay_4",]
+capacitys = [ 40160, 33869,]
+
+
+[[connect_to]]
+id = "edge_223"
+targets = [ "relay_33",]
+capacitys = [ 67593,]
+
+
+[[connect_to]]
+id = "edge_224"
+targets = [ "relay_43", "core_9",]
+capacitys = [ 66612, 195107,]
+
+
+[[connect_to]]
+id = "edge_225"
+targets = [ "core_12", "relay_37",]
+capacitys = [ 162958, 58350,]
+
+
+[[connect_to]]
+id = "edge_226"
+targets = [ "relay_14", "relay_37",]
+capacitys = [ 57414, 171166,]
+
+
+[[connect_to]]
+id = "edge_227"
+targets = [ "core_8", "relay_1",]
+capacitys = [ 107079, 138065,]
+
+
+[[connect_to]]
+id = "edge_228"
+targets = [ "relay_15", "relay_18",]
+capacitys = [ 169729, 25457,]
+
+
+[[connect_to]]
+id = "edge_229"
+targets = [ "relay_45",]
+capacitys = [ 20349,]
+
+
+[[connect_to]]
+id = "edge_230"
+targets = [ "relay_4",]
+capacitys = [ 179637,]
+
+
+[[connect_to]]
+id = "edge_231"
+targets = [ "relay_0",]
+capacitys = [ 21488,]
+
+
+[[connect_to]]
+id = "edge_232"
+targets = [ "relay_28", "relay_1",]
+capacitys = [ 168534, 109436,]
+
+
+[[connect_to]]
+id = "edge_233"
+targets = [ "core_9",]
+capacitys = [ 154645,]
+
+
+[[connect_to]]
+id = "edge_234"
+targets = [ "relay_42",]
+capacitys = [ 82762,]
+
+
+[[connect_to]]
+id = "edge_235"
+targets = [ "relay_3", "relay_36",]
+capacitys = [ 35243, 70939,]
+
+
+[[connect_to]]
+id = "edge_236"
+
+targets = [ "relay_17", "core_6",]
+capacitys = [ 77795, 136997,]
+
+
+[[connect_to]]
+id = "edge_237"
+targets = [ "core_1",]
+capacitys = [ 69115,]
+
+
+[[connect_to]]
+id = "edge_238"
+targets = [ "relay_16", "relay_14",]
+capacitys = [ 37497, 66830,]
+
+
+[[connect_to]]
+id = "edge_239"
+targets = [ "relay_6",]
+capacitys = [ 32561,]
+
+
+[[connect_to]]
+id = "edge_240"
+targets = [ "relay_6", "core_11",]
+capacitys = [ 111001, 187817,]
+
+
+[[connect_to]]
+id = "edge_241"
+targets = [ "relay_43",]
+capacitys = [ 156084,]
+
+
+[[connect_to]]
+id = "edge_242"
+targets = [ "relay_6", "core_0",]
+capacitys = [ 196949, 108268,]
+
+
+[[connect_to]]
+id = "edge_243"
+targets = [ "relay_16", "relay_42",]
+capacitys = [ 138344, 95137,]
+
+
+[[connect_to]]
+id = "edge_244"
+targets = [ "core_3", "relay_26",]
+capacitys = [ 160581, 74308,]
+
+
+[[connect_to]]
+id = "edge_245"
+targets = [ "core_8", "relay_22",]
+capacitys = [ 45247, 39568,]
+
+
+[[connect_to]]
+id = "edge_246"
+targets = [ "relay_9", "relay_20",]
+capacitys = [ 190621, 149337,]
+
+
+[[connect_to]]
+id = "edge_247"
+targets = [ "relay_20", "relay_10",]
+capacitys = [ 106875, 136569,]
+
+
+[[connect_to]]
+id = "edge_248"
+targets = [ "core_6",]
+capacitys = [ 10208,]
+
+[[transfer]]
+from="edge"
+to="edge"
+amount=1000
+user=5
+duration=10

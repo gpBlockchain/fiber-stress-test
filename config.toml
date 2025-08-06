@@ -1,0 +1,195 @@
+[ckb]
+url = "http://localhost:8114"
+
+[[fibers]]
+type="core"
+urls=["http://127.0.0.1:8228","http://127.0.0.1:8229","http://127.0.0.1:8251"]
+
+[[fibers]]
+type="relay"
+urls=["http://127.0.0.1:8252","http://127.0.0.1:8253","http://127.0.0.1:8254","http://127.0.0.1:8255","http://127.0.0.1:8256","http://127.0.0.1:8257"]
+
+[[fibers]]
+type="edge"
+urls=[
+"http://127.0.0.1:8258",
+"http://127.0.0.1:8259",
+"http://127.0.0.1:8260",
+"http://127.0.0.1:8261",
+"http://127.0.0.1:8262",
+"http://127.0.0.1:8263",
+"http://127.0.0.1:8264",
+"http://127.0.0.1:8265",
+"http://127.0.0.1:8266",
+"http://127.0.0.1:8267",
+"http://127.0.0.1:8268",
+"http://127.0.0.1:8269",
+"http://127.0.0.1:8270",
+]
+
+
+
+[[connect_to]]
+id = "core_0"
+targets = [ "core_1", "core_2","core_1","core_2"]
+capacitys = [ 1955540, 1120394, 1442728, 1776792]
+
+
+[[connect_to]]
+id = "core_1"
+targets = [ "core_0", "core_2","core_0", "core_2"]
+capacitys = [ 1608043, 1606149, 1442728, 1776792]
+
+
+[[connect_to]]
+id = "core_2"
+targets = [ "core_0", "core_1","core_0", "core_1"]
+capacitys = [ 1500, 2000,2500,1000]
+
+
+[[connect_to]]
+id = "relay_0"
+targets = [ "core_0", "core_1", "core_2"]
+capacitys = [ 1000, 2000, 3000]
+
+
+[[connect_to]]
+id = "relay_1"
+targets = [ "core_0", "core_2"]
+capacitys = [ 2000, 3000]
+
+
+[[connect_to]]
+id = "relay_2"
+targets = [ "core_2", "core_1", "relay_3"]
+capacitys = [ 2000, 3000, 2000]
+
+
+[[connect_to]]
+id = "relay_3"
+targets = [  "core_1", "core_0"]
+capacitys = [  3000, 2000]
+
+
+[[connect_to]]
+id = "relay_4"
+targets = [ "core_0", "core_2","relay_3", "relay_2",]
+capacitys = [ 2000, 1000, 1500, 1500]
+
+
+[[connect_to]]
+id = "relay_5"
+targets = [ "core_1", "core_0","relay_4"]
+capacitys = [1000,2000,2000]
+
+
+[[connect_to]]
+id = "edge_0"
+targets = [ "core_1", "relay_5",]
+capacitys = [ 2000, 1000,]
+
+
+[[connect_to]]
+id = "edge_1"
+
+targets = [ "relay_1",]
+capacitys = [ 1000,]
+
+
+[[connect_to]]
+id = "edge_2"
+
+targets = [ "relay_3",]
+capacitys = [ 1118,]
+
+
+[[connect_to]]
+id = "edge_3"
+
+targets = [ "core_2",]
+capacitys = [ 2539,]
+
+
+[[connect_to]]
+id = "edge_4"
+
+targets = [ "core_2", "relay_2",]
+capacitys = [ 1602, 2732,]
+
+
+[[connect_to]]
+id = "edge_5"
+
+targets = [ "relay_3", "core_1",]
+capacitys = [ 1257, 1343,]
+
+[[connect_to]]
+id = "edge_6"
+
+targets = [ "relay_2", "core_1",]
+capacitys = [ 4851, 1494,]
+
+
+[[connect_to]]
+id = "edge_7"
+
+targets = [ "relay_5", "relay_2",]
+capacitys = [ 4348, 1308,]
+
+
+[[connect_to]]
+id = "edge_8"
+
+targets = [ "relay_4",]
+capacitys = [ 1729,]
+
+
+[[connect_to]]
+id = "edge_9"
+
+targets = [ "relay_4", "relay_1",]
+capacitys = [ 1264, 3187,]
+
+
+[[connect_to]]
+id = "edge_10"
+
+targets = [ "relay_3", "relay_1",]
+capacitys = [ 1887, 1528,]
+
+
+[[connect_to]]
+id = "edge_11"
+
+targets = [ "relay_4", "relay_1",]
+capacitys = [ 3709, 1185,]
+
+
+[[connect_to]]
+id = "edge_12"
+targets = [ "relay_2",]
+capacitys = [ 3070,]
+
+
+[[transfer]]
+from="edge"
+to="edge"
+amount=1000
+user=5
+duration=10
+
+
+[[transfer]]
+from="core"
+to="core"
+amount=2000
+user=1
+duration=10
+
+
+[[transfer]]
+from="relay"
+to="relay"
+amount=2000
+user=2
+duration=10
