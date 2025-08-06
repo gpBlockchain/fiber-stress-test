@@ -1,4 +1,5 @@
-from src.config import FibersConfig
+from src.config import CKB_UNIT, FibersConfig
+from src.rpc import get_ckb_balance, RPCClient
 import logging
 
 LOGGER = logging.getLogger(__name__)
@@ -7,6 +8,7 @@ LOGGER = logging.getLogger(__name__)
 def check_balance(config):
     print("--- Running Preparation Phase: Connecting Nodes ---")
     fibers_config = FibersConfig(config)
+    ckbClient = RPCClient(config.get("ckb").get("url"))
     total_capacity = 0    
     if 'connect_to' in config:
         for connection in config['connect_to']:
@@ -24,9 +26,12 @@ def check_balance(config):
             for i in range(len(capacitys)):
                 capacitys_sum += capacitys[i]
             total_capacity += capacitys_sum
-            print(f"fiber id:{connection.get('id')} need capacity:{capacitys_sum}")
-                # todo check capacity enough
-                # skip channel if cap in ledger_channels
+            account_lock = fibers_config.fibersMap[connection.get('id')].node_info()['default_funding_lock_script']
+            ckb_balance = get_ckb_balance(ckbClient, account_lock)
+            print(f"fiber id:{connection.get('id')} need capacity:{ckb_balance}/{capacitys_sum*CKB_UNIT} ok:{ckb_balance >= capacitys_sum*CKB_UNIT}, ckb_balance:{ckb_balance}")
+            if ckb_balance < capacitys_sum*CKB_UNIT:
+                print(f"fiber id:{connection.get('id')} script:{account_lock} ckb_balance:{ckb_balance} < capacitys_sum*CKB_UNIT:{capacitys_sum*CKB_UNIT}")
+
     print(f"total capacity:{total_capacity}")
     print("--- Preparation Phase Complete ---")
 

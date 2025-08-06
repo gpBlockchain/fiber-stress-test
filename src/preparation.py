@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 import time
-from src.config import FibersConfig
+from src.config import FibersConfig,CKB_UNIT
 import logging
 
 LOGGER = logging.getLogger(__name__)
@@ -11,7 +11,6 @@ def connect_nodes(config):
     print("--- Running Preparation Phase: Connecting Nodes ---")
     fibers_config = FibersConfig(config)
     fiber_keys = fibers_config.fibersMap.keys()
-    print("fiber_keys:",fiber_keys)
     graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({})
     for channel in graph_channels['channels']:
         ledger_channels.append({
@@ -74,10 +73,10 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     打开一个通道
     确认通道创建成功
     """
-    if {'node_1': fiber1.node_info()['node_id'], 'node_2': fiber2.node_info()['node_id'], 'capacity': (capacity-62)*100000000} in ledger_channels:
+    if {'node_1': fiber1.node_info()['node_id'], 'node_2': fiber2.node_info()['node_id'], 'capacity': (capacity*CKB_UNIT-62*100000000)} in ledger_channels:
         print("skip channel if cap in ledger_channels")
         return
-    if {'node_1': fiber2.node_info()['node_id'], 'node_2': fiber1.node_info()['node_id'], 'capacity': (capacity-62)*100000000} in ledger_channels:
+    if {'node_1': fiber2.node_info()['node_id'], 'node_2': fiber1.node_info()['node_id'], 'capacity': (capacity*CKB_UNIT-62*100000000)} in ledger_channels:
         print("skip channel if cap in ledger_channels in reverse")
         return
     fiber2_node_info = fiber2.node_info()
@@ -86,18 +85,18 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     fiber2_peer_id = fiber2_node_info["addresses"][0].split("/")[-1]
     open_channel_config = {
         "peer_id": fiber2_peer_id,
-        "funding_amount": hex(capacity*100000000),
+        "funding_amount": hex(capacity*CKB_UNIT),
         "tlc_fee_proportional_millionths": hex(1000),
         "public": True,
         "funding_udt_type_script": udt,
     }
     try:
         fiber1.open_channel(open_channel_config)
+        wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY")
     except Exception as e:
         print(f"open channel failed:{e}")
-    wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY")
     try:
-        send_payment(fiber1,fiber2,int(capacity*100000000/2),udt=udt)
+        send_payment(fiber1,fiber2,int(capacity*CKB_UNIT/2),udt=udt)
     except Exception as e:
         print(f"send payment failed:{e}")
 
@@ -164,16 +163,16 @@ def check_connect(config):
             
             for i in range(len(targets)):
                 target_rpc = fibers_config.fibersMap.get(targets[i])
-                if {'node_1': source_rpc.node_info()['node_id'], 'node_2': target_rpc.node_info()['node_id'], 'capacity': (capacitys[i]-62)*100000000} in ledger_channels:
+                if {'node_1': source_rpc.node_info()['node_id'], 'node_2': target_rpc.node_info()['node_id'], 'capacity': capacitys[i]*CKB_UNIT-62*100000000} in ledger_channels:
                     print("skip channel if cap in ledger_channels")
                     continue
-                if {'node_1': target_rpc.node_info()['node_id'], 'node_2': source_rpc.node_info()['node_id'], 'capacity': (capacitys[i]-62)*100000000} in ledger_channels:
+                if {'node_1': target_rpc.node_info()['node_id'], 'node_2': source_rpc.node_info()['node_id'], 'capacity': capacitys[i]*CKB_UNIT-62*100000000} in ledger_channels:
                     print("skip channel if cap in ledger_channels in reverse")
                     continue
-                print(f"Channel from {source_node_id} to {target_node_id} is not exist.")
+                print(f"Channel from {source_node_id} to {targets[i]} is not exist.")
                 not_exist_channels.append({
                     'node_1': source_node_id,
-                    'node_2': target_node_id,
+                    'node_2': targets[i],
                     'capacity': capacitys[i],
                 })
                 
