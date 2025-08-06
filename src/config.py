@@ -23,4 +23,3 @@ class FibersConfig:
                 self.fibersMap[fiber_id] = FiberRPCClient(fiber['urls'][i])
                 self.fiber_locks[fiber_id] = threading.Lock()
             self.typeCount[fiber_type] = len(fiber['urls'])
-    

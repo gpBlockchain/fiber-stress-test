@@ -1,0 +1,47 @@
+[ckb]
+url = "http://localhost:8114"
+
+[[fibers]]
+type="core"
+urls=["http://127.0.0.1:8228","http://127.0.0.1:8229","http://127.0.0.1:8251"]
+
+[[fibers]]
+type="relay"
+urls=["http://127.0.0.1:8252","http://127.0.0.1:8253","http://127.0.0.1:8254","http://127.0.0.1:8255","http://127.0.0.1:8256","http://127.0.0.1:8257"]
+
+[[fibers]]
+type="edge"
+urls=[
+"http://127.0.0.1:8258",
+"http://127.0.0.1:8259",
+"http://127.0.0.1:8260",
+"http://127.0.0.1:8261",
+"http://127.0.0.1:8262",
+"http://127.0.0.1:8263",
+"http://127.0.0.1:8264",
+"http://127.0.0.1:8265",
+"http://127.0.0.1:8266",
+"http://127.0.0.1:8267",
+"http://127.0.0.1:8268",
+"http://127.0.0.1:8269",
+"http://127.0.0.1:8270",
+]
+
+
+
+[[connect_to]]
+id = "core_2"
+targets = [ "core_1","core_0"]
+capacitys = [  2000, 3000]
+udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d4f4f8f8", hash_type = "type", args = "0x32e555f3ff8e135cece1351a6a2971518392c1e30375c1e006ad0ce8eac07947" }
+
+
+
+[[transfer]]
+from="core"
+to="core"
+amount=2000
+user=1
+duration=60000
+udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d4f4f8f8", hash_type = "type", args = "0x32e555f3ff8e135cece1351a6a2971518392c1e30375c1e006ad0ce8eac07947" }
+

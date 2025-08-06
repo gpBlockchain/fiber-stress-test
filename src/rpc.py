@@ -282,7 +282,7 @@ def get_ckb_balance(rpcClient,script):
     return int(get_cells_capacity["capacity"], 16)
 
 
-def get_udt_balance(rpcClient,script,udt):
+def get_udt_balance(client,script,udt):
     cells = client.get_cells(
             {
                 "script": script,
@@ -307,7 +307,7 @@ def get_udt_balance(rpcClient,script,udt):
                 "balance": to_int_from_big_uint128_le(cell["output_data"]),
             }
         )
-        total_balance += info["balance"]
+        total_balance += to_int_from_big_uint128_le(cell["output_data"])
     return total_balance
 
 def to_int_from_big_uint128_le(hex_str):

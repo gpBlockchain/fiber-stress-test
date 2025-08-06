@@ -36,12 +36,27 @@ id = "core_0"
 targets = [ "core_1", "core_2","core_1","core_2"]
 capacitys = [ 1955540, 1120394, 1442728, 1776792]
 
+[[connect_to]]
+id = "core_0"
+targets = [ "core_1" ]
+capacitys = [ 10000000 ]
+udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d4f4f8f8", hash_type = "type", args = "0x32e555f3ff8e135cece1351a6a2971518392c1e30375c1e006ad0ce8eac07947" }
+
 [[transfer]]
 from = "edge"
 to = "edge"
 amount = 1000
 user = 5
 duration = 10
+
+[[transfer]]
+from = "edge"
+to = "edge"
+amount = 1
+user = 5
+duration = 10
+udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d4f4f8f8", hash_type = "type", args = "0x32e555f3ff8e135cece1351a6a2971518392c1e30375c1e006ad0ce8eac07947" }
+
 ```
 
 - **`[[fibers]]`**: Defines a group of nodes of the same type. The script will generate indexed names based on the `type` and the list of `urls` (e.g., `edge_0`, `edge_1`).
@@ -52,6 +67,7 @@ duration = 10
     - `id` (string): The identifier of the source node (e.g., `"core_0"`).
     - `targets` (array of strings): A list of target node identifiers to connect to.
     - `capacitys` (array of integers): A list of channel capacities, corresponding to each target in the `targets` list. The length must match the `targets` array.
+    - `udt` (table, optional): The UDT (User-Defined Token) script to be used for the channel. If provided, the channel will be a UDT channel.
 
 - **`[[transfer]]`**: An array of tables, where each table defines a concurrent transaction scenario.
     - `from` (string): The source of the transactions. Can be a specific node identifier (e.g., `"edge_0"`) or a node type (e.g., `"edge"`). If a type is specified, a random node of that type will be selected for each transaction.
@@ -59,6 +75,7 @@ duration = 10
     - `amount` (integer): The amount to be sent in each individual transaction.
     - `user` (integer): The number of concurrent threads to execute this transaction scenario.
     - `duration` (integer): The total time in seconds that this scenario will run for.
+    - `udt` (table, optional): The UDT (User-Defined Token) script to be used for the transfer. If provided, the transfer will be a UDT transfer. The structure should be `{ code_hash = "...", hash_type = "...", args = "..." }`.
 
 ## How to Run
 
@@ -132,6 +149,6 @@ python main.py config.toml shutdown
 ```
 
 ### TODO
-- [ ] Add check balance
+- [x] Add check balance
+- [x] Add support for udt
 - [ ] Add support transfer ckb  and udt transfer
-- [ ] Add support for udt

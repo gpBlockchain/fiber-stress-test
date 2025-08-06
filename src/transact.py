@@ -33,7 +33,7 @@ def run_transfer_scenario(fibers_config, transfer_config):
                 completed_in_interval = completed_count - last_completed_count
                 tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
 
-                print(f"Elapsed: {current_time - start_time:.2f}s, Total: {total_transactions}, Completed: {completed_count}, Failed: {failed_count}, TPS: {tps:.2f}")
+                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Failed: {failed_count}, TPS: {tps:.2f}")
                 last_print_time = current_time
                 last_completed_count = completed_count
 
@@ -86,6 +86,7 @@ def send_payment_by_id(fibers_config, transaction):
     from_node_id = transaction.get('from')
     to_node_id = transaction.get('to')
     amount = transaction.get('amount')
+    udt = transaction.get('udt',None)
 
     from_rpc = fibers_config.fibersMap.get(from_node_id)
     to_rpc = fibers_config.fibersMap.get(to_node_id)
@@ -97,7 +98,7 @@ def send_payment_by_id(fibers_config, transaction):
     try:
         # send_payment_by_rpc(from_rpc, to_rpc, amount)
         # def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
-        send_payment(from_rpc, to_rpc, amount, wait=True, udt=None, try_count=0)
+        send_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
         # print(f"Transaction from {from_node_id} to {to_node_id} Sending : {amount}  took {end_time - start_time:.4f} seconds.")
         return True
