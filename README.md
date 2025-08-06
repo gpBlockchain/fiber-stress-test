@@ -91,6 +91,14 @@ udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d
 
     - **Connect Nodes and Open Channels**:
 
+
+    - **Check Balance**:
+
+      ```bash
+      python main.py config.toml check_balance
+      ```
+      Calculates and prints the total capacity defined in the `connect_to` sections of the configuration.
+
       ```bash
       python main.py config.toml connect_to
       ```
@@ -117,13 +125,6 @@ udt = { code_hash = "0x102583443ba6cfe5a3ac268bbb4475fb63eb497dce077f126ad3b148d
       ```
       Cleans up by shutting down all the nodes defined in the `fibers` section.
 
-    - **Check Balance**:
-
-      ```bash
-      python main.py config.toml check_balance
-      ```
-      Calculates and prints the total capacity defined in the `connect_to` sections of the configuration.
-
 ### Example Workflow
 
 A typical workflow would be to run the commands in sequence:
@@ -141,10 +142,7 @@ python main.py config.toml check_connect
 # 3. Run the transaction load test
 python main.py config.toml transfer
 
-# 4. Run the transaction load test
-python main.py config.toml transfer
-
-# 5. Cleanup
+# 4. Cleanup
 python main.py config.toml shutdown
 ```
 
