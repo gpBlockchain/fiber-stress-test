@@ -1,4 +1,3 @@
-from concurrent.futures import ThreadPoolExecutor
 import time
 from src.config import FibersConfig
 

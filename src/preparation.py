@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
-import time
-from src.config import FibersConfig,CKB_UNIT
+from src.config import FibersConfig
+from src.fiber_rpc import CKB_UNIT
 from src.fiber_rpc import open_channel
 import logging
 
@@ -60,7 +60,15 @@ def open_channel_by_id(fibers_config, source_node, targets, capacitys, udt=None)
         lock1_id, lock2_id = sorted([source_node, target_node])
         lock1 = fibers_config.fiber_locks[lock1_id]
         lock2 = fibers_config.fiber_locks[lock2_id]
-
+        graph_capacity = capacitys[i]*CKB_UNIT
+        if udt ==None:
+            graph_capacity = graph_capacity-62*100000000
+        if {'node_1': fibers_config.fibersMap[source_node].node_info()['node_id'], 'node_2': fibers_config.fibersMap[target_node].node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
+            print("skip channel if cap in ledger_channels")
+            continue
+        if {'node_1': fibers_config.fibersMap[target_node].node_info()['node_id'], 'node_2': fibers_config.fibersMap[source_node].node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
+            print("skip channel if cap in ledger_channels in reverse")
+            continue
         lock1.acquire()
         lock2.acquire()
         try:

@@ -9,6 +9,9 @@ import random
 
 LOGGER = logging.getLogger(__name__)
 
+CKB_UNIT = 100000000
+
+CKB_CELL_RETAIN = 62 * 100000000
 
 class FiberRPCClient:
     def __init__(self, url, other_params={}, try_count=200):
@@ -250,15 +253,6 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     打开一个通道
     确认通道创建成功
     """
-    graph_capacity = capacity*CKB_UNIT
-    if udt ==None:
-        graph_capacity = graph_capacity-62*100000000
-    if {'node_1': fiber1.node_info()['node_id'], 'node_2': fiber2.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-        print("skip channel if cap in ledger_channels")
-        return
-    if {'node_1': fiber2.node_info()['node_id'], 'node_2': fiber1.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-        print("skip channel if cap in ledger_channels in reverse")
-        return
     fiber2_node_info = fiber2.node_info()
     fiber1.connect_peer({"address": fiber2_node_info["addresses"][0]})
     time.sleep(1)

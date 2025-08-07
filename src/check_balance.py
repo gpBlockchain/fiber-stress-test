@@ -1,4 +1,5 @@
-from src.config import CKB_UNIT, FibersConfig
+from src.config import FibersConfig
+from src.fiber_rpc import CKB_UNIT
 from src.rpc import get_ckb_balance, get_udt_balance,RPCClient
 import logging
 

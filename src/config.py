@@ -4,9 +4,6 @@ import threading
 from src.fiber_rpc import FiberRPCClient
 
 ### ckb 单位定义
-CKB_UNIT = 100000000
-
-CKB_CELL_RETAIN = 62 * 100000000
 
 class FibersConfig:
     def __init__(self, config: dict[str, any]):
