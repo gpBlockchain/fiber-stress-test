@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import time
 from src.config import FibersConfig,CKB_UNIT
+from src.fiber_rpc import open_channel
 import logging
 
 LOGGER = logging.getLogger(__name__)
@@ -70,76 +71,6 @@ def open_channel_by_id(fibers_config, source_node, targets, capacitys, udt=None)
             lock1.release()
 
 
-def open_channel(fiber1, fiber2, capacity,udt=None):
-    """
-    打开一个通道
-    确认通道创建成功
-    """
-    graph_capacity = capacity*CKB_UNIT
-    if udt ==None:
-        graph_capacity = graph_capacity-62*100000000
-    if {'node_1': fiber1.node_info()['node_id'], 'node_2': fiber2.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-        print("skip channel if cap in ledger_channels")
-        return
-    if {'node_1': fiber2.node_info()['node_id'], 'node_2': fiber1.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-        print("skip channel if cap in ledger_channels in reverse")
-        return
-    fiber2_node_info = fiber2.node_info()
-    fiber1.connect_peer({"address": fiber2_node_info["addresses"][0]})
-    time.sleep(1)
-    fiber2_peer_id = fiber2_node_info["addresses"][0].split("/")[-1]
-    open_channel_config = {
-        "peer_id": fiber2_peer_id,
-        "funding_amount": hex(capacity*CKB_UNIT),
-        "tlc_fee_proportional_millionths": hex(1000),
-        "public": True,
-        "funding_udt_type_script": udt,
-    }
-    try:
-        fiber1.open_channel(open_channel_config)
-        wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY")
-    except Exception as e:
-        print(f"open channel failed:{e}")
-    try:
-        send_payment(fiber1,fiber2,int(capacity*CKB_UNIT/2),udt=udt)
-    except Exception as e:
-        print(f"send payment failed:{e}")
-
-def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
-    for i in range(try_count):
-        try:
-            payment = fiber1.send_payment(
-                {
-                    "target_pubkey": fiber2.node_info()["node_id"],
-                    "amount": hex(amount),
-                    "keysend": True,
-                    "allow_self_payment": True,
-                    "udt_type_script": udt,
-                }
-            )
-            if wait:
-                wait_payment_state(
-                    fiber1, payment["payment_hash"], "Success", 600, 0.05
-                )
-            return payment["payment_hash"]
-        except Exception as e:
-            time.sleep(1)
-            continue
-    payment = fiber1.send_payment(
-        {
-            "target_pubkey": fiber2.node_info()["node_id"],
-            "amount": hex(amount),
-            "keysend": True,
-            "allow_self_payment": True,
-            "udt_type_script": udt,
-        }
-    )
-    if wait:
-        wait_payment_state(
-            fiber1, payment["payment_hash"], "Success", 600, 0.1
-        )
-    return payment["payment_hash"]
-
 def check_connect(config):
     print("--- Running Check Connect Phase: Verifying Channels ---")
     ledger_channels = []
@@ -196,59 +127,5 @@ def check_connect(config):
         print(channel)
     
 
-def wait_payment_state(
-     client, payment_hash, status="Success", timeout=360, interval=0.1
-):
-    for i in range(timeout):
-        result = client.get_payment({"payment_hash": payment_hash})
-        if result["status"] == status:
-            return
-        time.sleep(interval)
-    raise TimeoutError(
-        f"payment:{payment_hash} status did not reach state: {result['status']}, expected:{status} , within timeout period."
-    )
-
-
-
-def wait_for_channel_state(
-    client,
-    peer_id,
-    expected_state,
-    timeout=120,
-    include_closed=False,
-    channel_id=None,
-):
-    """Wait for a channel to reach a specific state.
-    1. NEGOTIATING_FUNDING
-    2. CHANNEL_READY
-    3. CLOSED
-
-    """
-    for _ in range(timeout):
-        channels = client.list_channels(
-            {"peer_id": peer_id, "include_closed": include_closed}
-        )
-        if len(channels["channels"]) == 0:
-            time.sleep(1)
-            continue
-        idx = 0
-        if channel_id is not None:
-            for i in range(len(channels["channels"])):
-                print("channel_id:", channel_id)
-                if channels["channels"][i]["channel_id"] == channel_id:
-                    idx = i
-
-        if channels["channels"][idx]["state"]["state_name"] == expected_state:
-            LOGGER.info(f"Channel reached expected state: {expected_state}")
-            # todo wait broading
-            time.sleep(1)
-            return channels["channels"][idx]["channel_id"]
-        LOGGER.info(
-            f"Waiting for channel state: {expected_state}, current state: {channels['channels'][0]['state']}"
-        )
-        time.sleep(1)
-    raise TimeoutError(
-        f"Channel did not reach state {expected_state} within timeout period."
-    )
 
 

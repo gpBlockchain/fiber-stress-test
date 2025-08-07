@@ -1,8 +1,10 @@
+import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 import time
 import random
 from src.config import FibersConfig
-from src.preparation import send_payment
+from src.fiber_rpc import send_payment,send_invoice_payment
+
 def run_transfer_scenario(fibers_config, transfer_config):
     duration = transfer_config.get('duration', 60)
     concurrency = transfer_config.get('user', 1)
@@ -13,34 +15,53 @@ def run_transfer_scenario(fibers_config, transfer_config):
     failed_transactions = 0
 
     with ThreadPoolExecutor(max_workers=concurrency) as executor:
-        futures = []
+        futures = set()
         last_print_time = time.time()
+        completed_count = 0
         last_completed_count = 0
 
-        while time.time() < end_time:
-            future = submit_payment_task(executor, fibers_config, transfer_config)
-            if future:
-                futures.append(future)
-                total_transactions += 1
-            time.sleep(0.1)
+        # Submit initial batch of tasks
+        for _ in range(concurrency):
+            if time.time() < end_time:
+                future = submit_payment_task(executor, fibers_config, transfer_config)
+                if future:
+                    futures.add(future)
+                    total_transactions += 1
+
+        while futures:
+            # Wait for the next future to complete
+            done, _ = concurrent.futures.wait(futures, return_when=concurrent.futures.FIRST_COMPLETED, timeout=0.1)
+
+            for future in done:
+                completed_count += 1
+                try:
+                    if not future.result():
+                        failed_transactions += 1
+                except Exception as e:
+                    failed_transactions += 1
+                    print(f"Task failed with exception: {e}")
+                
+                # Remove the completed future
+                futures.remove(future)
+
+                # Submit a new task if there's still time
+                if time.time() < end_time:
+                    new_future = submit_payment_task(executor, fibers_config, transfer_config)
+                    if new_future:
+                        futures.add(new_future)
+                        total_transactions += 1
 
             if time.time() - last_print_time >= 5:
                 current_time = time.time()
                 elapsed_interval = current_time - last_print_time
-                completed_count = sum(1 for f in futures if f.done())
-                failed_count = sum(1 for f in futures if f.done() and f.result() is False)
-
+                
                 completed_in_interval = completed_count - last_completed_count
                 tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
 
-                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Failed: {failed_count}, TPS: {tps:.2f}")
+                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Failed: {failed_transactions}, TPS: {tps:.2f}")
                 last_print_time = current_time
                 last_completed_count = completed_count
 
-        for future in futures:
-            if not future.result():
-                failed_transactions += 1
-    
     print(f"Scenario finished. Total: {total_transactions}, Failed: {failed_transactions}")
 
 def send_transactions(config):
@@ -79,8 +100,15 @@ def submit_payment_task(executor, fibers_config, transaction):
     payment_transaction = transaction.copy()
     payment_transaction['from'] = from_node_id
     payment_transaction['to'] = to_node_id
+    tx_type = transaction.get('type','payment')
+    if tx_type == 'payment':
+        return executor.submit(send_payment_by_id, fibers_config, payment_transaction)
+    elif tx_type == 'invoice':
+        return executor.submit(send_invoice_payment_by_id, fibers_config, payment_transaction)
+    else:
+        print(f"Unknown transaction type {tx_type}. Skipping.")
+        return None
 
-    return executor.submit(send_payment_by_id, fibers_config, payment_transaction)
 
 def send_payment_by_id(fibers_config, transaction):
     from_node_id = transaction.get('from')
@@ -96,20 +124,32 @@ def send_payment_by_id(fibers_config, transaction):
         return False
     start_time = time.time()
     try:
-        # send_payment_by_rpc(from_rpc, to_rpc, amount)
-        # def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
         send_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
-        # print(f"Transaction from {from_node_id} to {to_node_id} Sending : {amount}  took {end_time - start_time:.4f} seconds.")
         return True
     except Exception as e:
         end_time = time.time()
         print(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
         return False
-    
-# def send_payment_by_rpc(from_rpc, to_rpc, amount):
-#     """
-#     Simulates sending a payment from one node to another.
-#     """
-#     # Placeholder for actual payment logic
-#     send_payment(from_rpc, to_rpc, amount)
+
+def send_invoice_payment_by_id(fibers_config, transaction):
+    from_node_id = transaction.get('from')
+    to_node_id = transaction.get('to')
+    amount = transaction.get('amount')
+    udt = transaction.get('udt',None)
+
+    from_rpc = fibers_config.fibersMap.get(from_node_id)
+    to_rpc = fibers_config.fibersMap.get(to_node_id)
+
+    if not from_rpc or not to_rpc:
+        print(f"Skipping transaction from {from_node_id} to {to_node_id} due to missing node RPC client.")
+        return False
+    start_time = time.time()
+    try:
+        send_invoice_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
+        end_time = time.time()
+        return True
+    except Exception as e:
+        end_time = time.time()
+        print(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
+        return False

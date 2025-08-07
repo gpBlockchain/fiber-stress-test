@@ -10,6 +10,11 @@ def check_balance(config):
     fibers_config = FibersConfig(config)
     ckbClient = RPCClient(config.get("ckb").get("url"))
     total_capacity = {'ckb':0}
+    fiber_capacity_map = {}
+    for key in fibers_config.fibersMap.keys():
+        fiber_capacity_map[key] = {}
+        fiber_capacity_map[key]['deposit_ckb'] = 0
+        fiber_capacity_map[key]['udt'] = {}
     if 'connect_to' in config:
         for connection in config['connect_to']:
             targets = connection.get('targets', [])
@@ -33,13 +38,33 @@ def check_balance(config):
             account_lock = fibers_config.fibersMap[connection.get('id')].node_info()['default_funding_lock_script']
             if key == 'ckb':
                 ckb_balance = get_ckb_balance(ckbClient, account_lock)
-                print(f"fiber id:{connection.get('id')} need capacity:{ckb_balance}/{capacitys_sum[key]*CKB_UNIT} ok:{ckb_balance >= capacitys_sum[key]*CKB_UNIT}, ckb_balance:{ckb_balance}")
-                if ckb_balance < capacitys_sum[key]*CKB_UNIT:
-                    print(f"fiber id:{connection.get('id')} script:{account_lock} ckb_balance:{ckb_balance} < capacitys_sum*CKB_UNIT:{capacitys_sum[key]*CKB_UNIT}")
+                fiber_capacity_map[connection.get('id')]['ckb'] = {'balance':ckb_balance,'need':capacitys_sum[key]*CKB_UNIT}
             else:
                 udt_balance = get_udt_balance(ckbClient, account_lock, udt)
-                print(f"fiber id:{connection.get('id')} need capacity:{udt_balance}/{capacitys_sum[key]*CKB_UNIT} ok:{udt_balance >= capacitys_sum[key]*CKB_UNIT}, udt_balance:{udt_balance}")
+                fiber_capacity_map[connection.get('id')]['udt'][key] = {'balance':udt_balance,'need':capacitys_sum[key]*CKB_UNIT}
+            
+            # get deposit balance
+            # if udt，id deposit balance = 142*ckb * target length  
+            if key == 'ckb':
+                fiber_capacity_map[connection.get('id')]['deposit_ckb'] += 62*len(targets) * CKB_UNIT
+                for target in targets:
+                    fiber_capacity_map[target]['deposit_ckb'] += 62 * CKB_UNIT
+            else:
+                fiber_capacity_map[connection.get('id')]['deposit_ckb'] += 142*len(targets) * CKB_UNIT
+                for target in targets:
+                    fiber_capacity_map[target]['deposit_ckb'] += 142 * CKB_UNIT
 
+    
+    for key in fiber_capacity_map.keys():
+        print(f"fiber id:{key}  data:{fiber_capacity_map[key]}")  
+        # todo 打印余额不足的用户          
+        if fiber_capacity_map[key]['ckb']['balance'] < fiber_capacity_map[key]['ckb']['need']+ fiber_capacity_map[key]['deposit_ckb']:
+            print(f"fiber id:{key} ckb balance not enough, need:{fiber_capacity_map[key]['ckb']['need']+ fiber_capacity_map[key]['deposit_ckb']}, balance:{fiber_capacity_map[key]['ckb']['balance']}")
+        for udt_key in fiber_capacity_map[key]['udt'].keys():
+            if fiber_capacity_map[key]['udt'][udt_key]['balance'] < fiber_capacity_map[key]['udt'][udt_key]['need']:
+                print(f"fiber id:{key} {udt_key} balance not enough, need:{fiber_capacity_map[key]['udt'][udt_key]['need']}, balance:{fiber_capacity_map[key]['udt'][udt_key]['balance']}")
+
+            
     print(f"total capacity:{total_capacity}")
-    print("--- Preparation Phase Complete ---")
+    print("--- Check Phase Complete ---")
 
