@@ -12,7 +12,7 @@ def connect_nodes(config):
     print("--- Running Preparation Phase: Connecting Nodes ---")
     fibers_config = FibersConfig(config)
     fiber_keys = fibers_config.fibersMap.keys()
-    graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({})
+    graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({"limit":"0xfffff"})
     for channel in graph_channels['channels']:
         ledger_channels.append({
             'node_1': channel['node1'],
@@ -84,8 +84,7 @@ def check_connect(config):
     ledger_channels = []
     fibers_config = FibersConfig(config)
     fiber_keys = fibers_config.fibersMap.keys()
-    print("fiber_keys:",fiber_keys)
-    graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({})
+    graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({"limit":"0xfffff"})
     for channel in graph_channels['channels']:
         ledger_channels.append({
             'node_1': channel['node1'],
