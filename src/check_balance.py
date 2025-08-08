@@ -16,8 +16,10 @@ def check_balance(config):
         fiber_capacity_map[key] = {}
         fiber_capacity_map[key]['deposit_ckb'] = 0
         fiber_capacity_map[key]['udt'] = {}
+        fiber_capacity_map['ckb'] =  {'balance': 0, 'need': 0}
     if 'connect_to' in config:
         for connection in config['connect_to']:
+            print("current id:",connection.get('id'))
             targets = connection.get('targets', [])
             capacitys = connection.get('capacitys', [])
             capacitys_sum = {'ckb':0,'udt':0}
