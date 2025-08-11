@@ -255,7 +255,7 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     """
     fiber2_node_info = fiber2.node_info()
     fiber1.connect_peer({"address": fiber2_node_info["addresses"][0]})
-    time.sleep(1)
+    time.sleep(2)
     fiber2_peer_id = fiber2_node_info["addresses"][0].split("/")[-1]
     open_channel_config = {
         "peer_id": fiber2_peer_id,
@@ -266,7 +266,8 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     }
     try:
         fiber1.open_channel(open_channel_config)
-        wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY")
+        time.sleep(2)
+        wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY",timeout=60)
     except Exception as e:
         print(f"open channel failed:{e}")
     try:
