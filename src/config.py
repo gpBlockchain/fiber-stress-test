@@ -17,6 +17,6 @@ class FibersConfig:
             fiber_type = fiber['type']
             for i in range(len(fiber['urls'])):
                 fiber_id = f"{fiber_type}_{i}"
-                self.fibersMap[fiber_id] = FiberRPCClient(fiber['urls'][i],other_params=config['fiber_rpc'])
+                self.fibersMap[fiber_id] = FiberRPCClient(fiber['urls'][i],other_params=config.get('fiber_rpc',{}))
                 self.fiber_locks[fiber_id] = threading.Lock()
             self.typeCount[fiber_type] = len(fiber['urls'])

@@ -21,14 +21,13 @@ def connect_nodes(config):
             'udt_type_script': channel['udt_type_script'],
         })
     if 'connect_to' in config:
-        with ThreadPoolExecutor(max_workers=20) as executor:
+        with ThreadPoolExecutor(max_workers=200) as executor:
             futures = []
             for connection in config['connect_to']:
                 targets = connection.get('targets', [])
                 source_node = connection.get('id')
                 capacitys = connection.get('capacitys', [])
                 udt = connection.get('udt', None)
-                capacitys_sum = 0
                 #  check capcitys len == targets len
                 if len(capacitys) != len(targets):
                     raise Exception(f"capacitys len:{len(capacitys)} != targets len:{len(targets)}")
@@ -37,14 +36,9 @@ def connect_nodes(config):
                     if target not in fibers_config.fibersMap:
                         raise Exception(f"target id:{target} not exist")
 
-                for i in range(len(capacitys)):
-                    capacitys_sum += capacitys[i]
-                print(f"fiber id:{connection.get('id')} need capacity:{capacitys_sum}")
-                # todo check capacity enough
-                # skip channel if cap in ledger_channels
-                
-                future = executor.submit(open_channel_by_id, fibers_config, source_node, targets, capacitys, udt)
-                futures.append(future)
+                for i in range(len(targets)):
+                    future = executor.submit(open_single_channel, fibers_config, source_node, targets[i], capacitys[i], udt)
+                    futures.append(future)
 
             for future in futures:
                 future.result()  # Wait for all tasks to complete
@@ -52,31 +46,39 @@ def connect_nodes(config):
     print("--- Preparation Phase Complete ---")
 
 
-def open_channel_by_id(fibers_config, source_node, targets, capacitys, udt=None):
-    for i in range(len(targets)):
-        target_node = targets[i]
-        print(f"open channel from {source_node} to {target_node} with capacity {capacitys[i]}")
-        # To prevent deadlock, always lock in the same order.
-        lock1_id, lock2_id = sorted([source_node, target_node])
-        lock1 = fibers_config.fiber_locks[lock1_id]
-        lock2 = fibers_config.fiber_locks[lock2_id]
-        graph_capacity = capacitys[i]*CKB_UNIT
-        if udt ==None:
-            graph_capacity = graph_capacity-62*100000000
-        if {'node_1': fibers_config.fibersMap[source_node].node_info()['node_id'], 'node_2': fibers_config.fibersMap[target_node].node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-            print("skip channel if cap in ledger_channels")
-            continue
-        if {'node_1': fibers_config.fibersMap[target_node].node_info()['node_id'], 'node_2': fibers_config.fibersMap[source_node].node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
-            print("skip channel if cap in ledger_channels in reverse")
-            continue
-        lock1.acquire()
-        lock2.acquire()
-        try:
-            open_channel(fibers_config.fibersMap[source_node], fibers_config.fibersMap[target_node], capacitys[i], udt)
-            print(f"open channel from {source_node} to {target_node} with capacity {capacitys[i]} success")
-        finally:
-            lock2.release()
-            lock1.release()
+def open_single_channel(fibers_config, source_node, target_node, capacity, udt=None):    # To prevent deadlock, always lock in the same order.
+    lock1_id, lock2_id = sorted([source_node, target_node])
+    lock1 = fibers_config.fiber_locks[lock1_id]
+    lock2 = fibers_config.fiber_locks[lock2_id]
+    lock1.acquire()
+    lock2.acquire()
+    print(f"acquire lock {lock1_id} and {lock2_id}")
+    print(f"open channel from {source_node} to {target_node} with capacity {capacity}")
+    try:
+        graph_capacity = capacity * CKB_UNIT
+        if udt is None:
+            graph_capacity = graph_capacity - 62 * 100000000
+
+        source_node_id = fibers_config.fibersMap[source_node].node_info()['node_id']
+        target_node_id = fibers_config.fibersMap[target_node].node_info()['node_id']
+
+        channel1 = {'node_1': source_node_id, 'node_2': target_node_id, 'capacity': graph_capacity,
+                    'udt_type_script': udt}
+        channel2 = {'node_1': target_node_id, 'node_2': source_node_id, 'capacity': graph_capacity,
+                    'udt_type_script': udt}
+
+        channel_exists = channel1 in ledger_channels or channel2 in ledger_channels
+        if not channel_exists:
+            open_channel(fibers_config.fibersMap[source_node], fibers_config.fibersMap[target_node], capacity,
+                         udt)
+            print(f"open channel from {source_node} to {target_node} with capacity {capacity} success")
+        else:
+            print("skip channel as it already exists in ledger")
+
+    finally:
+        lock2.release()
+        lock1.release()
+        print(f"release lock {lock1_id} and {lock2_id}")
 
 
 def check_connect(config):
