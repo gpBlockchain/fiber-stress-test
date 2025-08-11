@@ -10,7 +10,7 @@ def health_check(config):
         msgs = {}
         for key in list(fibers_config.fibersMap.keys()):
         # fiber list channel 
-            msgs[key] = {"channel_size":0,"peer_size":0,"payment_failed_size":0,"payment_success_size":0,"not_found_peer_id":[],"payment_err":[]}
+            msgs[key] = {"channel_size":0,"peer_size":0,"payment_failed_size":0,"payment_success_size":0,"not_found_peer_id":[],"payment_err":[],"url":fibers_config.fibersMap[key].url}
             try:
                 channel =  fibers_config.fibersMap[key].list_channels({})
                 peers_info = fibers_config.fibersMap[key].list_peers()
@@ -23,6 +23,7 @@ def health_check(config):
             for channel in channel["channels"]:
                 # 从 peer id 获取 pubkey
                 try:
+                    pubkey = None
                     peer_id = channel["peer_id"]
                     for peer in peers_info["peers"]:
                         if peer["peer_id"] == peer_id:
@@ -43,7 +44,7 @@ def health_check(config):
                         "keysend":True,
                         "udt_type_script": channel['funding_udt_type_script'],
                     })
-                    wait_payment_state(fibers_config.fibersMap[key], payment["payment_hash"], "Success",timeout=10, interval=1)
+                    wait_payment_state(fibers_config.fibersMap[key], payment["payment_hash"], "Success",timeout=15, interval=1)
                     print(f"cur id:{key} channel id:{channel['channel_id']}remote id:{channel["peer_id"]} payment:{payment["payment_hash"]} success")
                     msgs[key]["payment_success_size"] += 1
                     # 打印一些日志
@@ -57,9 +58,9 @@ def health_check(config):
         print("===============================检查结果 ERROR :===============================")
         for key in msgs.keys():
             if "err" in msgs[key].keys():
-                print(f"ERROR: cur id:{key} list channel failed:",msgs[key]["err"])
+                print(f"ERROR: cur id:{key},url:{msgs[key]["url"]} list channel failed:",msgs[key]["err"])
             if len(msgs[key]["not_found_peer_id"]) > 0:
-                print(f"ERROR: cur id:{key} not found peer id:",msgs[key]["not_found_peer_id"])
+                print(f"ERROR: cur id:{key},url:{msgs[key]["url"]} not found peer id:",msgs[key]["not_found_peer_id"])
             if msgs[key]["payment_failed_size"] > 0:
-                print(f"ERROR: cur id:{key} payment failed size:{msgs[key]["payment_failed_size"]} err:",msgs[key]["payment_err"])
+                print(f"ERROR: cur id:{key},url:{msgs[key]["url"]} payment failed size:{msgs[key]["payment_failed_size"]} err:",msgs[key]["payment_err"])
         print("===============================检查结果 END ===============================")
