@@ -245,7 +245,7 @@ class RPCClient:
     def test_tx_pool_accept(self, tx, outputs_validator):
         return self.call("test_tx_pool_accept", [tx, outputs_validator])
 
-    def call(self, method, params, try_count=15):
+    def call(self, method, params, try_count=5):
 
         headers = {"content-type": "application/json"}
         data = {"id": 42, "jsonrpc": "2.0", "method": method, "params": params}
