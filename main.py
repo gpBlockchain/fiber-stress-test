@@ -5,7 +5,7 @@ from src.preparation import connect_nodes, check_connect
 from src.transact import send_transactions
 from src.cleanup import shutdown_nodes
 from src.check_balance import check_balance
-from src.cange_config import change_config
+from src.change_config import change_config
 from src.health_check import health_check
 from src.info import info
 
