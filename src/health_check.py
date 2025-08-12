@@ -1,7 +1,7 @@
 from src.config import FibersConfig
 from src.fiber_rpc import CKB_UNIT
 from src.fiber_rpc import wait_payment_state
-
+import time 
 def health_check(config):
     fibers_config = FibersConfig(config)
     # 定时 检查
