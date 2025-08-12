@@ -38,14 +38,16 @@ def health_check(config):
                     if int(channel['local_balance'],16) < 1 * CKB_UNIT:
                         continue
                     # send payment 
+                    begin_time = time.time()
                     payment = fibers_config.fibersMap[key].send_payment({
                         "target_pubkey": pubkey,
                         "amount": hex(1) ,
                         "keysend":True,
                         "udt_type_script": channel['funding_udt_type_script'],
                     })
-                    wait_payment_state(fibers_config.fibersMap[key], payment["payment_hash"], "Success",timeout=15, interval=1)
-                    print(f"cur id:{key} channel id:{channel['channel_id']}remote id:{channel["peer_id"]} payment:{payment["payment_hash"]} success")
+                    wait_payment_state(fibers_config.fibersMap[key], payment["payment_hash"], "Success",timeout=150, interval=0.1)
+                    end_time = time.time()
+                    print(f"cur id:{key} channel id:{channel['channel_id']}remote id:{channel["peer_id"]} payment:{payment["payment_hash"]},fee:{payment["fee"]} success cost time:{end_time-begin_time}")
                     msgs[key]["payment_success_size"] += 1
                     # 打印一些日志
                 except Exception as e:
