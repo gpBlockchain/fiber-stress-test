@@ -8,12 +8,15 @@ from src.check_balance import check_balance
 from src.change_config import change_config
 from src.health_check import health_check
 from src.info import info
+from src.connect_nodes import connect_channel_nodes
+from src.balance_check import balance_check
+from src.shutdown_check import shutdown_check
 
 def main():
     """主函数入口"""
     parser = argparse.ArgumentParser(description="Fiber Stress Test Tool")
     parser.add_argument('config', help='Path to the configuration file.')
-    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check'], help='The command to execute.')
+    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check'], help='The command to execute.')
 
     args = parser.parse_args()
 
@@ -43,6 +46,12 @@ def main():
         info(config)
     elif args.command == 'health_check':
         health_check(config)
+    elif args.command == 'connect_channel_nodes':
+        connect_channel_nodes(config)
+    elif args.command == 'balance_check':
+        balance_check(config)
+    elif args.command == 'shutdown_check':
+        shutdown_check(config)
 
 
 if __name__ == '__main__':

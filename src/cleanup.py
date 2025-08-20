@@ -5,7 +5,7 @@ from src.fiber_rpc import CKB_UNIT
 def shutdown_nodes(config):
     print("--- Running Cleanup Phase: Shutting Down Nodes ---")
     fibers_config = FibersConfig(config)
-    # 获取connnect 
+    # 获取connnect_to
     # target id 获取和当前node的channel id
     # target 关闭channel ，将close_script填id
     for connection in config['connect_to']:
@@ -34,16 +34,19 @@ def shutdown_nodes(config):
                     channel_balance -= ckb_deposit
                 if (channel_balance == connection.get("capacitys")[i]*CKB_UNIT ):
                     if channel['state']['state_name'] == 'CHANNEL_READY':
-                        target_fiber.shutdown_channel({
-                            "channel_id": channel["channel_id"],
-                            "close_script": from_fiber.node_info()['default_funding_lock_script'],
-                            "fee_rate":"0x3FC"
-                        })
+                        try:
+                            target_fiber.shutdown_channel({
+                                "channel_id": channel["channel_id"],
+                                "close_script": from_fiber.node_info()['default_funding_lock_script'],
+                                "fee_rate":"0x3FC"
+                            })
+                        except:
+                            pass
                         print(f"channel {channel['channel_id']} shutdown success")
                         time.sleep(0.1)
                         break
                     else:
-                        print(f"channel {channel['channel_id']} status is {channel['status']}")
+                        print(f"channel {channel['channel_id']} status is {channel['state']}")
                 else:
                     print(f"channel {channel['channel_id']} balance is not equal,local_balance: {int(channel['local_balance'],16)} remote_balance: {int(channel['remote_balance'],16)} current balance: {channel_balance} not eq: {connection.get('capacitys')[i]*CKB_UNIT}")
 

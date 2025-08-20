@@ -5,11 +5,20 @@ import time
 def health_check(config):
     fibers_config = FibersConfig(config)
     # 定时 检查
+    # skip check node 
+    skip_check_node = []
+    skip_check_node_peer_ids = []
+    for key in list(fibers_config.fibersMap.keys()):
+        if key.startswith("check"):
+            skip_check_node.append(key)
+            skip_check_node_peer_ids.append(fibers_config.fibersMap[key].node_info()['addresses'][0].split("/")[2]) 
     while True:
         print("--- Running Health Check ---")
         msgs = {}
         for key in list(fibers_config.fibersMap.keys()):
         # fiber list channel 
+            if key in skip_check_node:
+                continue
             msgs[key] = {"channel_size":0,"peer_size":0,"payment_failed_size":0,"payment_success_size":0,"not_found_peer_id":[],"payment_err":[],"url":fibers_config.fibersMap[key].url}
             try:
                 channel =  fibers_config.fibersMap[key].list_channels({})
@@ -25,6 +34,8 @@ def health_check(config):
                 try:
                     pubkey = None
                     peer_id = channel["peer_id"]
+                    if peer_id in skip_check_node_peer_ids:
+                        continue
                     for peer in peers_info["peers"]:
                         if peer["peer_id"] == peer_id:
                             pubkey = peer["pubkey"]
