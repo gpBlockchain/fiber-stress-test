@@ -44,7 +44,7 @@ def shutdown_nodes(config):
                             pass
                         print(f"channel {channel['channel_id']} shutdown success")
                         time.sleep(0.1)
-                        break
+                        continue
                     else:
                         print(f"channel {channel['channel_id']} status is {channel['state']}")
                 else:
