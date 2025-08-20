@@ -1,4 +1,3 @@
-from tkinter import NO
 from src.rpc import RPCClient
 from src.config import FibersConfig
 
