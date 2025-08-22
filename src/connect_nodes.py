@@ -16,7 +16,11 @@ def connect_channel_nodes(config):
         try:
             channels = fiber.list_channels({})
             list_peers = fiber.list_peers()
-            print(f"connect {key} channels:{len(channels['channels'])},list_peers:{len(list_peers['peers'])}")
+            # linked 
+            peer_id_set = set()
+            for channel in channels['channels']:
+                peer_id_set.add(channel['peer_id'])
+            print(f"connect {key} channels:{len(channels['channels'])},peer_id_set:{len(peer_id_set)},list_peers:{len(list_peers['peers'])}")
 
             peers = []
             for peer in list_peers['peers']:
