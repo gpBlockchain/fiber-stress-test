@@ -1,5 +1,4 @@
 import time
-from tkinter import E
 from src.config import FibersConfig
 from src.fiber_rpc import CKB_UNIT
 
