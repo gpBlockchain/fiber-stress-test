@@ -38,7 +38,11 @@ def check_balance(config):
             for i in range(len(capacitys)):
                 capacitys_sum[key] += capacitys[i]
             total_capacity[key] += capacitys_sum[key]
-            account_lock = fibers_config.fibersMap[connection.get('id')].node_info()['default_funding_lock_script']
+            try:
+                account_lock = fibers_config.fibersMap[connection.get('id')].node_info()['default_funding_lock_script']
+            except Exception as e:
+                print(f"id {connection.get('id')} error {e}")
+                continue
             if key == 'ckb':
                 ckb_balance = get_ckb_balance(ckbClient, account_lock)
                 fiber_capacity_map[connection.get('id')]['ckb'] = {'balance':ckb_balance,'need':capacitys_sum[key]*CKB_UNIT}
