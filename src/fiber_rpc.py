@@ -367,6 +367,8 @@ def wait_payment_state(
         result = client.get_payment({"payment_hash": payment_hash})
         if result["status"] == status:
             return
+        if result['status'] == 'Success' or result['status'] == 'Failed':
+            break
         time.sleep(interval)
     raise TimeoutError(
         f"payment:{payment_hash} status did not reach state: {result['status']}, expected:{status} , within timeout period."
