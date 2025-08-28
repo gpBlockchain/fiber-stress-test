@@ -89,9 +89,12 @@ def submit_payment_task(executor, fibers_config, transaction):
     from_spec = transaction.get('from')
     to_spec = transaction.get('to')
 
-    from_node_id = get_random_node_id(fibers_config, from_spec)
-    to_node_id = get_random_node_id(fibers_config, to_spec)
-
+    # 确保发送方和接收方不是同一个节点
+    while True:
+        from_node_id = get_random_node_id(fibers_config, from_spec)
+        to_node_id = get_random_node_id(fibers_config, to_spec)
+        if from_node_id != to_node_id:
+            break
     if not from_node_id or not to_node_id:
         print(f"Could not resolve nodes for transaction from {from_spec} to {to_spec}. Skipping.")
         return None
