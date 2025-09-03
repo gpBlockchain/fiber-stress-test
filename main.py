@@ -3,7 +3,7 @@ import toml
 
 from src.preparation import connect_nodes, check_connect
 from src.transact import send_transactions
-from src.cleanup import shutdown_nodes
+from src.cleanup import shutdown_nodes,force_shutdown
 from src.check_balance import check_balance
 from src.change_config import change_config
 from src.health_check import health_check
@@ -11,12 +11,16 @@ from src.info import info
 from src.connect_nodes import connect_channel_nodes
 from src.balance_check import balance_check
 from src.shutdown_check import shutdown_check
+from src.force_shutdown import force_shutdown_channel
+from src.graph_channel_info import graph_channels_info
+from src.blance_channel import balance_channels
+
 
 def main():
     """主函数入口"""
     parser = argparse.ArgumentParser(description="Fiber Stress Test Tool")
     parser.add_argument('config', help='Path to the configuration file.')
-    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check'], help='The command to execute.')
+    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown','force_shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check','force_shutdown_channel','graph_channels_info','balance_channels'], help='The command to execute.')
 
     args = parser.parse_args()
 
@@ -52,6 +56,14 @@ def main():
         balance_check(config)
     elif args.command == 'shutdown_check':
         shutdown_check(config)
+    elif args.command == 'force_shutdown':
+        force_shutdown(config)
+    elif args.command == 'force_shutdown_channel':
+        force_shutdown_channel(config)
+    elif args.command == 'graph_channels_info':
+        graph_channels_info(config)
+    elif args.command == 'balance_channels':
+        balance_channels(config)
 
 
 if __name__ == '__main__':
