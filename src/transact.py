@@ -2,8 +2,11 @@ import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor
 import time
 import random
+import logging
 from src.config import FibersConfig
 from src.fiber_rpc import send_payment,send_invoice_payment
+
+LOGGER = logging.getLogger(__name__)
 
 def run_transfer_scenario(fibers_config, transfer_config):
     duration = transfer_config.get('duration', 60)
@@ -13,12 +16,14 @@ def run_transfer_scenario(fibers_config, transfer_config):
 
     total_transactions = 0
     failed_transactions = 0
+    success_transactions = 0
 
     with ThreadPoolExecutor(max_workers=concurrency) as executor:
         futures = set()
         last_print_time = time.time()
         completed_count = 0
         last_completed_count = 0
+        last_success_count = 0
 
         # Submit initial batch of tasks
         for _ in range(concurrency):
@@ -35,11 +40,13 @@ def run_transfer_scenario(fibers_config, transfer_config):
             for future in done:
                 completed_count += 1
                 try:
-                    if not future.result():
+                    if future.result():
+                        success_transactions += 1
+                    else:
                         failed_transactions += 1
                 except Exception as e:
                     failed_transactions += 1
-                    print(f"Task failed with exception: {e}")
+                    LOGGER.error(f"Task failed with exception: {e}")
                 
                 # Remove the completed future
                 futures.remove(future)
@@ -51,21 +58,24 @@ def run_transfer_scenario(fibers_config, transfer_config):
                         futures.add(new_future)
                         total_transactions += 1
 
-            if time.time() - last_print_time >= 5:
+            if time.time() - last_print_time >= 30:
                 current_time = time.time()
                 elapsed_interval = current_time - last_print_time
                 
                 completed_in_interval = completed_count - last_completed_count
+                success_in_interval = success_transactions - last_success_count
                 tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
+                success_tps = success_in_interval / elapsed_interval if elapsed_interval > 0 else 0
 
-                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Failed: {failed_transactions}, TPS: {tps:.2f}")
+                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Success: {success_transactions}, Failed: {failed_transactions}, TPS: {tps:.2f}, Success TPS: {success_tps:.2f}, 30s Transactions: {completed_in_interval}, 30s Success: {success_in_interval}")
                 last_print_time = current_time
                 last_completed_count = completed_count
+                last_success_count = success_transactions
 
-    print(f"Scenario finished. Total: {total_transactions}, Failed: {failed_transactions}")
+    LOGGER.info(f"Scenario finished. Total: {total_transactions}, Success: {success_transactions}, Failed: {failed_transactions}")
 
 def send_transactions(config):
-    print("--- Running Transaction Phase: Sending Transactions ---")
+    LOGGER.info("--- Running Transaction Phase: Sending Transactions ---")
     fibers_config = FibersConfig(config)
     if 'transfer' in config:
         with ThreadPoolExecutor(max_workers=len(config['transfer'])) as scenario_executor:
@@ -73,7 +83,7 @@ def send_transactions(config):
             for future in scenario_futures:
                 future.result()
 
-    print("--- Transaction Phase Complete ---")
+    LOGGER.info("--- Transaction Phase Complete ---")
 
 def get_random_node_id(fibers_config, node_specifier):
     if node_specifier in fibers_config.fibersMap.keys():
@@ -96,7 +106,7 @@ def submit_payment_task(executor, fibers_config, transaction):
         if from_node_id != to_node_id:
             break
     if not from_node_id or not to_node_id:
-        print(f"Could not resolve nodes for transaction from {from_spec} to {to_spec}. Skipping.")
+        LOGGER.warning(f"Could not resolve nodes for transaction from {from_spec} to {to_spec}. Skipping.")
         return None
 
     # Create a new transaction object for the specific payment
@@ -109,7 +119,7 @@ def submit_payment_task(executor, fibers_config, transaction):
     elif tx_type == 'invoice':
         return executor.submit(send_invoice_payment_by_id, fibers_config, payment_transaction)
     else:
-        print(f"Unknown transaction type {tx_type}. Skipping.")
+        LOGGER.warning(f"Unknown transaction type {tx_type}. Skipping.")
         return None
 
 
@@ -123,7 +133,7 @@ def send_payment_by_id(fibers_config, transaction):
     to_rpc = fibers_config.fibersMap.get(to_node_id)
 
     if not from_rpc or not to_rpc:
-        print(f"Skipping transaction from {from_node_id} to {to_node_id} due to missing node RPC client.")
+        LOGGER.warning(f"Skipping transaction from {from_node_id} to {to_node_id} due to missing node RPC client.")
         return False
     start_time = time.time()
     try:
@@ -132,7 +142,7 @@ def send_payment_by_id(fibers_config, transaction):
         return True
     except Exception as e:
         end_time = time.time()
-        print(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
+        LOGGER.error(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
         return False
 
 def send_invoice_payment_by_id(fibers_config, transaction):
@@ -145,7 +155,7 @@ def send_invoice_payment_by_id(fibers_config, transaction):
     to_rpc = fibers_config.fibersMap.get(to_node_id)
 
     if not from_rpc or not to_rpc:
-        print(f"Skipping transaction from {from_node_id} to {to_node_id} due to missing node RPC client.")
+        LOGGER.warning(f"Skipping transaction from {from_node_id} to {to_node_id} due to missing node RPC client.")
         return False
     start_time = time.time()
     try:
@@ -154,5 +164,5 @@ def send_invoice_payment_by_id(fibers_config, transaction):
         return True
     except Exception as e:
         end_time = time.time()
-        print(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
+        LOGGER.error(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
         return False
