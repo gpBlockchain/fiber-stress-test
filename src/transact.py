@@ -128,7 +128,7 @@ def send_payment_by_id(fibers_config, transaction):
     to_node_id = transaction.get('to')
     amount = transaction.get('amount')
     udt = transaction.get('udt',None)
-
+    LOGGER.debug(f"send payment from {from_node_id} to {to_node_id} amount {amount} udt {udt}")
     from_rpc = fibers_config.fibersMap.get(from_node_id)
     to_rpc = fibers_config.fibersMap.get(to_node_id)
 
@@ -139,6 +139,7 @@ def send_payment_by_id(fibers_config, transaction):
     try:
         send_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
+        LOGGER.debug(f"Success sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds.")
         return True
     except Exception as e:
         end_time = time.time()
@@ -150,7 +151,7 @@ def send_invoice_payment_by_id(fibers_config, transaction):
     to_node_id = transaction.get('to')
     amount = transaction.get('amount')
     udt = transaction.get('udt',None)
-
+    LOGGER.debug(f"send invoice payment from {from_node_id} to {to_node_id} amount {amount} udt {udt}")
     from_rpc = fibers_config.fibersMap.get(from_node_id)
     to_rpc = fibers_config.fibersMap.get(to_node_id)
 
@@ -161,6 +162,7 @@ def send_invoice_payment_by_id(fibers_config, transaction):
     try:
         send_invoice_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
+        LOGGER.debug(f"Success sending invoice payment from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds.")
         return True
     except Exception as e:
         end_time = time.time()
