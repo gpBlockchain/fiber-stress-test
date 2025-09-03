@@ -1,5 +1,6 @@
 import argparse
 import toml
+import logging
 
 from src.preparation import connect_nodes, check_connect
 from src.transact import send_transactions
@@ -17,6 +18,13 @@ from src.blance_channel import balance_channels
 
 def main():
     """主函数入口"""
+    # 配置日志格式，包含时间戳
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    
     parser = argparse.ArgumentParser(description="Fiber Stress Test Tool")
     parser.add_argument('config', help='Path to the configuration file.')
     parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown','force_shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check','graph_channels_info','balance_channels'], help='The command to execute.')
