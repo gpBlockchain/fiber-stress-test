@@ -66,7 +66,7 @@ async def run_transfer_scenario(fibers_config, transfer_config):
             tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
             success_tps = success_in_interval / elapsed_interval if elapsed_interval > 0 else 0
 
-            LOGGER.info(f"from:{transfer_config.get('from')},to:{transfer_config.get('to')} amount:{transfer_config.get('amount')} ,udt:{transfer_config.get('udt',None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Success: {success_transactions}, Failed: {failed_transactions}, TPS: {tps:.2f}, Success TPS: {success_tps:.2f}, 30s Transactions: {completed_in_interval}, 30s Success: {success_in_interval}")
+            LOGGER.info(f"from:{transfer_config.get('from')},to:{transfer_config.get('to')} amount:{transfer_config.get('amount')} ,udt:{transfer_config.get('udt',None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Success: {success_transactions}, Failed: {failed_transactions}, TPS: {tps:.2f}, Success TPS: {success_tps:.2f}, 10s Transactions: {completed_in_interval}, 30s Success: {success_in_interval}")
             last_print_time = current_time
             last_completed_count = completed_count
             last_success_count = success_transactions
