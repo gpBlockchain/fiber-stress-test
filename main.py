@@ -1,6 +1,7 @@
 import argparse
 import toml
 import logging
+import asyncio
 
 from src.preparation import connect_nodes, check_connect
 from src.transact import send_transactions
@@ -11,9 +12,11 @@ from src.health_check import health_check
 from src.info import info
 from src.connect_nodes import connect_channel_nodes
 from src.balance_check import balance_check
+from src.balance_check_async import balance_check_async
 from src.shutdown_check import shutdown_check
 from src.graph_channel_info import graph_channels_info
 from src.blance_channel import balance_channels
+from src.blance_channel_async import balance_channels_async
 
 
 def main():
@@ -46,7 +49,7 @@ def main():
     elif args.command == 'check_connect':
         check_connect(config)
     elif args.command == 'transfer':
-        send_transactions(config)
+        asyncio.run(send_transactions(config))
     elif args.command == 'shutdown':
         shutdown_nodes(config)
     elif args.command == 'check_balance':
@@ -61,6 +64,8 @@ def main():
         connect_channel_nodes(config)
     elif args.command == 'balance_check':
         balance_check(config)
+    elif args.command == 'balance_check_async':
+        asyncio.run(balance_check_async(config))
     elif args.command == 'shutdown_check':
         shutdown_check(config)
     elif args.command == 'force_shutdown':
@@ -69,6 +74,8 @@ def main():
         graph_channels_info(config)
     elif args.command == 'balance_channels':
         balance_channels(config)
+    elif args.command == 'balance_channels_async':
+        asyncio.run(balance_channels_async(config))
 
 
 if __name__ == '__main__':

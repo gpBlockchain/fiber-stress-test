@@ -1,14 +1,13 @@
-import concurrent.futures
-from concurrent.futures import ThreadPoolExecutor
+import asyncio
 import time
 import random
 import logging
-from src.config import FibersConfig
-from src.fiber_rpc import send_payment,send_invoice_payment
+from src.config_async import AsyncFibersConfig
+from src.fiber_rpc_async import send_payment_async, send_invoice_payment_async
 
 LOGGER = logging.getLogger(__name__)
 
-def run_transfer_scenario(fibers_config, transfer_config):
+async def run_transfer_scenario(fibers_config, transfer_config):
     duration = transfer_config.get('duration', 60)
     concurrency = transfer_config.get('user', 1)
     start_time = time.time()
@@ -18,70 +17,72 @@ def run_transfer_scenario(fibers_config, transfer_config):
     failed_transactions = 0
     success_transactions = 0
 
-    with ThreadPoolExecutor(max_workers=concurrency) as executor:
-        futures = set()
-        last_print_time = time.time()
-        completed_count = 0
-        last_completed_count = 0
-        last_success_count = 0
+    tasks = set()
+    last_print_time = time.time()
+    completed_count = 0
+    last_completed_count = 0
+    last_success_count = 0
 
-        # Submit initial batch of tasks
-        for _ in range(concurrency):
+    # Submit initial batch of tasks
+    for _ in range(concurrency):
+        if time.time() < end_time:
+            task = await submit_payment_task(fibers_config, transfer_config)
+            if task:
+                tasks.add(task)
+                total_transactions += 1
+
+    while tasks:
+        # Wait for the next task to complete
+        done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED, timeout=0.1)
+
+        for task in done:
+            completed_count += 1
+            try:
+                result = await task
+                if result:
+                    success_transactions += 1
+                else:
+                    failed_transactions += 1
+            except Exception as e:
+                failed_transactions += 1
+                LOGGER.error(f"Task failed with exception: {e}")
+            
+            # Remove the completed task
+            tasks.remove(task)
+
+            # Submit a new task if there's still time
             if time.time() < end_time:
-                future = submit_payment_task(executor, fibers_config, transfer_config)
-                if future:
-                    futures.add(future)
+                new_task = await submit_payment_task(fibers_config, transfer_config)
+                if new_task:
+                    tasks.add(new_task)
                     total_transactions += 1
 
-        while futures:
-            # Wait for the next future to complete
-            done, _ = concurrent.futures.wait(futures, return_when=concurrent.futures.FIRST_COMPLETED, timeout=0.1)
+        if time.time() - last_print_time >= 10:
+            current_time = time.time()
+            elapsed_interval = current_time - last_print_time
+            
+            completed_in_interval = completed_count - last_completed_count
+            success_in_interval = success_transactions - last_success_count
+            tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
+            success_tps = success_in_interval / elapsed_interval if elapsed_interval > 0 else 0
 
-            for future in done:
-                completed_count += 1
-                try:
-                    if future.result():
-                        success_transactions += 1
-                    else:
-                        failed_transactions += 1
-                except Exception as e:
-                    failed_transactions += 1
-                    LOGGER.error(f"Task failed with exception: {e}")
-                
-                # Remove the completed future
-                futures.remove(future)
-
-                # Submit a new task if there's still time
-                if time.time() < end_time:
-                    new_future = submit_payment_task(executor, fibers_config, transfer_config)
-                    if new_future:
-                        futures.add(new_future)
-                        total_transactions += 1
-
-            if time.time() - last_print_time >= 30:
-                current_time = time.time()
-                elapsed_interval = current_time - last_print_time
-                
-                completed_in_interval = completed_count - last_completed_count
-                success_in_interval = success_transactions - last_success_count
-                tps = completed_in_interval / elapsed_interval if elapsed_interval > 0 else 0
-                success_tps = success_in_interval / elapsed_interval if elapsed_interval > 0 else 0
-
-                print(f"from:{transfer_config.get("from")},to:{transfer_config.get("to")} amount:{transfer_config.get("amount")} ,udt:{transfer_config.get("udt",None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Success: {success_transactions}, Failed: {failed_transactions}, TPS: {tps:.2f}, Success TPS: {success_tps:.2f}, 30s Transactions: {completed_in_interval}, 30s Success: {success_in_interval}")
-                last_print_time = current_time
-                last_completed_count = completed_count
-                last_success_count = success_transactions
+            LOGGER.info(f"from:{transfer_config.get('from')},to:{transfer_config.get('to')} amount:{transfer_config.get('amount')} ,udt:{transfer_config.get('udt',None) !=None},users:{concurrency} Elapsed: {current_time - start_time:.2f}s/{duration}s, Total: {total_transactions}, Completed: {completed_count}, Success: {success_transactions}, Failed: {failed_transactions}, TPS: {tps:.2f}, Success TPS: {success_tps:.2f}, 30s Transactions: {completed_in_interval}, 30s Success: {success_in_interval}")
+            last_print_time = current_time
+            last_completed_count = completed_count
+            last_success_count = success_transactions
 
     LOGGER.info(f"Scenario finished. Total: {total_transactions}, Success: {success_transactions}, Failed: {failed_transactions}")
 
-def send_transactions(config):
+async def send_transactions(config):
     LOGGER.info("--- Running Transaction Phase: Sending Transactions ---")
-    fibers_config = FibersConfig(config)
-    if 'transfer' in config:
-        with ThreadPoolExecutor(max_workers=len(config['transfer'])) as scenario_executor:
-            scenario_futures = [scenario_executor.submit(run_transfer_scenario, fibers_config, tc) for tc in config['transfer']]
-            for future in scenario_futures:
-                future.result()
+    fibers_config = AsyncFibersConfig(config)
+    try:
+        if 'transfer' in config:
+            tasks = [run_transfer_scenario(fibers_config, tc) for tc in config['transfer']]
+            await asyncio.gather(*tasks)
+    finally:
+        # 确保关闭所有会话
+        await fibers_config.close_all_sessions()
 
     LOGGER.info("--- Transaction Phase Complete ---")
 
@@ -95,7 +96,7 @@ def get_random_node_id(fibers_config, node_specifier):
         return f"{node_type}_{node_index}"
     return None
 
-def submit_payment_task(executor, fibers_config, transaction):
+async def submit_payment_task(fibers_config, transaction):
     from_spec = transaction.get('from')
     to_spec = transaction.get('to')
 
@@ -115,15 +116,15 @@ def submit_payment_task(executor, fibers_config, transaction):
     payment_transaction['to'] = to_node_id
     tx_type = transaction.get('type','payment')
     if tx_type == 'payment':
-        return executor.submit(send_payment_by_id, fibers_config, payment_transaction)
+        return asyncio.create_task(send_payment_by_id(fibers_config, payment_transaction))
     elif tx_type == 'invoice':
-        return executor.submit(send_invoice_payment_by_id, fibers_config, payment_transaction)
+        return asyncio.create_task(send_invoice_payment_by_id(fibers_config, payment_transaction))
     else:
         LOGGER.warning(f"Unknown transaction type {tx_type}. Skipping.")
         return None
 
 
-def send_payment_by_id(fibers_config, transaction):
+async def send_payment_by_id(fibers_config, transaction):
     from_node_id = transaction.get('from')
     to_node_id = transaction.get('to')
     amount = transaction.get('amount')
@@ -137,7 +138,8 @@ def send_payment_by_id(fibers_config, transaction):
         return False
     start_time = time.time()
     try:
-        send_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
+        # 直接调用异步函数
+        await send_payment_async(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
         LOGGER.debug(f"Success sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds.")
         return True
@@ -146,7 +148,7 @@ def send_payment_by_id(fibers_config, transaction):
         LOGGER.error(f"Error sending transaction from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds. : {e}")
         return False
 
-def send_invoice_payment_by_id(fibers_config, transaction):
+async def send_invoice_payment_by_id(fibers_config, transaction):
     from_node_id = transaction.get('from')
     to_node_id = transaction.get('to')
     amount = transaction.get('amount')
@@ -160,7 +162,8 @@ def send_invoice_payment_by_id(fibers_config, transaction):
         return False
     start_time = time.time()
     try:
-        send_invoice_payment(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
+        # 直接调用异步函数
+        await send_invoice_payment_async(from_rpc, to_rpc, amount, wait=True, udt=udt, try_count=0)
         end_time = time.time()
         LOGGER.debug(f"Success sending invoice payment from {from_node_id} to {to_node_id} took {end_time - start_time:.4f} seconds.")
         return True
