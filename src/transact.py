@@ -99,12 +99,41 @@ def get_random_node_id(fibers_config, node_specifier):
 async def submit_payment_task(fibers_config, transaction):
     from_spec = transaction.get('from')
     to_spec = transaction.get('to')
+    udt = transaction.get('udt',None)
 
     # 确保发送方和接收方不是同一个节点
     while True:
         from_node_id = get_random_node_id(fibers_config, from_spec)
+        # get ckb and udt channels len
+        ckb_channels = 0
+        udt_channels = 0
+        from_channels = await fibers_config.fibersMap[from_node_id].list_channels({})
+        for channel in from_channels['channels']:
+            if channel['funding_udt_type_script'] == None:
+                ckb_channels += 1
+            else:
+                udt_channels += 1
+        if udt==None and ckb_channels != 0:
+            break
+        elif udt!=None and udt_channels != 0:
+            break
+    while True:
         to_node_id = get_random_node_id(fibers_config, to_spec)
-        if from_node_id != to_node_id:
+        if from_node_id == to_node_id:
+            continue
+        # get ckb and udt channels len
+        ckb_channels = 0
+        udt_channels = 0
+        to_channels = await fibers_config.fibersMap[to_node_id].list_channels({})
+        
+        for channel in to_channels['channels']:
+            if channel['funding_udt_type_script'] == None:
+                ckb_channels += 1
+            else:
+                udt_channels += 1
+        if udt==None and ckb_channels != 0:
+            break
+        elif udt!=None and udt_channels != 0:
             break
     if not from_node_id or not to_node_id:
         LOGGER.warning(f"Could not resolve nodes for transaction from {from_spec} to {to_spec}. Skipping.")
