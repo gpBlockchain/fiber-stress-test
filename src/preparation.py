@@ -3,23 +3,65 @@ from src.config import FibersConfig
 from src.fiber_rpc import CKB_UNIT
 from src.fiber_rpc import open_channel
 import logging
+from datetime import datetime, timedelta
 
 LOGGER = logging.getLogger(__name__)
 
 ledger_channels = []
+
+def _parse_ts_to_dt(ts):
+    """将可能为十六进制/十进制字符串或数值的时间戳解析为 datetime。
+    - 支持形如 0x... 的十六进制时间戳
+    - 支持秒或毫秒（数值大于 1e11 认为是毫秒）
+    返回值：datetime 或 None
+    """
+    if ts is None:
+        return None
+    try:
+        if isinstance(ts, str):
+            if ts.lower().startswith('0x'):
+                val = int(ts, 16)
+            else:
+                val = int(ts)
+        elif isinstance(ts, (int, float)):
+            val = int(ts)
+        else:
+            return None
+
+        # 毫秒/秒判断
+        if val > 10**11:
+            val = val / 1000
+
+        return datetime.fromtimestamp(val)
+    except Exception:
+        return None
 
 def connect_nodes(config):
     print("--- Running Preparation Phase: Connecting Nodes ---")
     fibers_config = FibersConfig(config)
     fiber_keys = fibers_config.fibersMap.keys()
     graph_channels = fibers_config.fibersMap[list(fiber_keys)[0]].graph_channels({"limit":"0xfffff"})
+    now = datetime.now()
     for channel in graph_channels['channels']:
+        created = channel.get('created_timestamp')
+        ts1 = (channel.get('update_info_of_node1') or {}).get('timestamp')
+        ts2 = (channel.get('update_info_of_node2') or {}).get('timestamp')
+        # 比较当前时间和 ts1/ts2/created，超过2天就跳过（ts1/ts2 可能为 hex）
+        created_dt = _parse_ts_to_dt(created)
+        ts1_dt = _parse_ts_to_dt(ts1)
+        ts2_dt = _parse_ts_to_dt(ts2)
+        candidates = [dt for dt in [created_dt, ts1_dt, ts2_dt] if dt is not None]
+        latest_dt = max(candidates) if candidates else None
+        if latest_dt is not None and (now - latest_dt) > timedelta(days=2):
+            LOGGER.info(f"skip stale channel: outpoint={channel.get('channel_outpoint')} latest={latest_dt}")
+            continue
         ledger_channels.append({
             'node_1': channel['node1'],
             'node_2': channel['node2'],
             'capacity': int(channel['capacity'],16),
             'udt_type_script': channel['udt_type_script'],
         })
+    print(f"total {len(ledger_channels)} channels")
     if 'connect_to' in config:
         with ThreadPoolExecutor(max_workers=200) as executor:
             futures = []
@@ -58,9 +100,12 @@ def open_single_channel(fibers_config, source_node, target_node, capacity, udt=N
         graph_capacity = capacity * CKB_UNIT
         if udt is None:
             graph_capacity = graph_capacity - 62 * 100000000
-
+        info = fibers_config.fibersMap[source_node].node_info()
+        print(f"source_node:{info}")
+        print(f"target_node:{fibers_config.fibersMap[target_node].node_info()}")
         source_node_id = fibers_config.fibersMap[source_node].node_info()['node_id']
         target_node_id = fibers_config.fibersMap[target_node].node_info()['node_id']
+        
 
         channel1 = {'node_1': source_node_id, 'node_2': target_node_id, 'capacity': graph_capacity,
                     'udt_type_script': udt}
