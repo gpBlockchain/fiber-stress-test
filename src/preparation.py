@@ -102,7 +102,6 @@ def open_single_channel(fibers_config, source_node, target_node, capacity, udt=N
             graph_capacity = graph_capacity - 62 * 100000000
         info = fibers_config.fibersMap[source_node].node_info()
         print(f"source_node:{info}")
-        print(f"target_node:{fibers_config.fibersMap[target_node].node_info()}")
         source_node_id = fibers_config.fibersMap[source_node].node_info()['node_id']
         target_node_id = fibers_config.fibersMap[target_node].node_info()['node_id']
         
