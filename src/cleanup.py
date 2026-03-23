@@ -22,7 +22,7 @@ def shutdown_nodes(config):
         if len(channels['channels']) == 0:
             continue
         try:
-            from_fiber_peer_id = from_fiber.node_info()["addresses"][0].split("/")[-1]
+            from_fiber_pubkey = from_fiber.node_info()["pubkey"]
         except Exception as e:
             print(f"from_id {from_id} error {e}")
             continue
@@ -31,7 +31,7 @@ def shutdown_nodes(config):
             target_fiber = fibers_config.fibersMap.get(target_id)
             try:
                 channels = target_fiber.list_channels({
-                    "peer_id": from_fiber_peer_id,
+                    "pubkey": from_fiber_pubkey,
                 })["channels"]
             except Exception as e:
                 print(f"target_id {target_id} error {e}")

@@ -13,7 +13,6 @@ async def balance_channels_async(config):
             LOGGER.info(f"current key:{key}")
             fiber = fibers_config.fibersMap[key]
             try:
-                list_peers = await fiber.list_peers()
                 chanels = await fiber.list_channels({})
             except Exception as e:
                 LOGGER.error(f"key:{key} list channels failed: {e}")
@@ -22,16 +21,7 @@ async def balance_channels_async(config):
             for channel in chanels['channels']:
                 if channel['remote_balance'] == "0x0":
                     LOGGER.info(f"key:{key} channel id:{channel['channel_id']}")
-                    peer_id = channel['peer_id']
-                    pubkey = None
-                    for peer in list_peers['peers']:
-                        if peer['peer_id'] == peer_id:
-                            pubkey = peer['pubkey']
-                            break
-                    
-                    if pubkey is None:
-                        LOGGER.error(f"Error: key:{key} channel id:{channel['channel_id']} - peer_id {peer_id} not found in peers list")
-                        continue
+                    pubkey = channel['pubkey']
                     
                     try:
                         payment = await fiber.send_payment({

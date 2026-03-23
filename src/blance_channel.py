@@ -8,7 +8,6 @@ def balance_channels(config):
         print(f"current key:{key}")
         fiber = fibers_config.fibersMap[key]
         try:
-            list_peers = fiber.list_peers()
             chanels = fiber.list_channels({})
         except Exception as e:
             print(f"key:{key} list channels failed: {e}")
@@ -16,16 +15,7 @@ def balance_channels(config):
         for channel in chanels['channels']:
             if channel['remote_balance'] == "0x0":
                 print(f"key:{key} channel id:{channel['channel_id']}")
-                peer_id = channel['peer_id']
-                pubkey = None
-                for peer in list_peers['peers']:
-                    if peer['peer_id'] == peer_id:
-                        pubkey = peer['pubkey']
-                        break
-                
-                if pubkey is None:
-                    print(f"Error: key:{key} channel id:{channel['channel_id']} - peer_id {peer_id} not found in peers list")
-                    continue
+                pubkey = channel['pubkey']
                 try:
                     payment = fiber.send_payment({
                         "target_pubkey": pubkey,
