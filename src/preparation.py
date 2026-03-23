@@ -101,8 +101,8 @@ def open_single_channel(fibers_config, source_node, target_node, capacity, udt=N
         if udt is None:
             graph_capacity = graph_capacity - 62 * 100000000
         info = fibers_config.fibersMap[source_node].node_info()
-        source_node_id = fibers_config.fibersMap[source_node].node_info()['node_id']
-        target_node_id = fibers_config.fibersMap[target_node].node_info()['node_id']
+        source_node_id = fibers_config.fibersMap[source_node].node_info()['pubkey']
+        target_node_id = fibers_config.fibersMap[target_node].node_info()['pubkey']
         
 
         channel1 = {'node_1': source_node_id, 'node_2': target_node_id, 'capacity': graph_capacity,
@@ -155,12 +155,12 @@ def check_connect(config):
                 graph_capacity = capacitys[i]*CKB_UNIT
                 if udt ==None:
                     graph_capacity = graph_capacity-62*100000000
-                # print('current:',{'node_1': source_rpc.node_info()['node_id'], 'node_2': target_rpc.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt})
+                # print('current:',{'node_1': source_rpc.node_info()['pubkey'], 'node_2': target_rpc.node_info()['pubkey'], 'capacity': graph_capacity,'udt_type_script':udt})
                 # print('ledger_channels:',ledger_channels)
-                if {'node_1': source_rpc.node_info()['node_id'], 'node_2': target_rpc.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
+                if {'node_1': source_rpc.node_info()['pubkey'], 'node_2': target_rpc.node_info()['pubkey'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
                     print("skip channel if cap in ledger_channels")
                     continue
-                if {'node_1': target_rpc.node_info()['node_id'], 'node_2': source_rpc.node_info()['node_id'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
+                if {'node_1': target_rpc.node_info()['pubkey'], 'node_2': source_rpc.node_info()['pubkey'], 'capacity': graph_capacity,'udt_type_script':udt} in ledger_channels:
                     print("skip channel if cap in ledger_channels in reverse")
                     continue
                 

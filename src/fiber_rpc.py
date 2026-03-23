@@ -39,7 +39,7 @@ class FiberRPCClient:
             "method": "open_channel",
             "params": [
                 {
-                    "peer_id": "QmaQSn11jsAXWLhjHtZ9EVbauD88sCmYzty3GmYcoVWP2j",
+                    "pubkey": "02a3bb31f957085a3837460d2c18bbb3186a76fce2a563dbed62ec1a0e58cef512",
                     "funding_amount": "0x2e90edd000"
                 }
             ]
@@ -56,11 +56,11 @@ class FiberRPCClient:
             "method": "list_channels",
             "params": [
                 {
-                    "peer_id": "QmaQSn11jsAXWLhjHtZ9EVbauD88sCmYzty3GmYcoVWP2j"
+                    "pubkey": "02a3bb31f957085a3837460d2c18bbb3186a76fce2a563dbed62ec1a0e58cef512"
                 }
             ]
         }'
-        {"jsonrpc": "2.0", "result": {"channels": [{"channel_id": "0x2329a1ced09d0c9eff46068ac939596bb657a984b1d6385db563f2de837b8879", "peer_id": "QmaQSn11jsAXWLhjHtZ9EVbauD88sCmYzty3GmYcoVWP2j", "state": {"state_name": "NEGOTIATING_FUNDING", "state_flags": "OUR_INIT_SENT | THEIR_INIT_SENT"}, "local_balance": "0x2d1f615200", "sent_tlc_balance": "0x0", "remote_balance": "0x0", "received_tlc_balance": "0x0", "created_at": "0x620a0b7b1676b"}]}, "id": 42}
+        {"jsonrpc": "2.0", "result": {"channels": [{"channel_id": "0x2329a1ced09d0c9eff46068ac939596bb657a984b1d6385db563f2de837b8879", "pubkey": "02a3bb31f957085a3837460d2c18bbb3186a76fce2a563dbed62ec1a0e58cef512", "state": {"state_name": "NEGOTIATING_FUNDING", "state_flags": "OUR_INIT_SENT | THEIR_INIT_SENT"}, "local_balance": "0x2d1f615200", "sent_tlc_balance": "0x0", "remote_balance": "0x0", "received_tlc_balance": "0x0", "created_at": "0x620a0b7b1676b"}]}, "id": 42}
         """
         return self.call("list_channels", [param])
 
@@ -181,7 +181,7 @@ class FiberRPCClient:
             ]
         }'
         response:
-        {"jsonrpc": "2.0", "result": {"version": "0.1.0", "commit_hash": "07174b5", "public_key": "03640b2a484786fd385813b250f910c5e4196acd62617dcf80a8f8797926c7d441", "node_name": null, "peer_id": "QmWcfdGWUqejDBZ7KwUPPvat2Y6wttACDz6XypLE56JCmf", "addresses": ["/ip4/127.0.0.1/tcp/8230/p2p/QmWcfdGWUqejDBZ7KwUPPvat2Y6wttACDz6XypLE56JCmf"], "chain_hash": "0x7ba63bdb2f401e6a922a6a6200bbd898c3b179a3035d5534324232af7808296c", "open_channel_auto_accept_min_ckb_funding_amount": "0x3c5986200", "auto_accept_channel_ckb_funding_amount": "0x1718c7e00", "tlc_expiry_delta": "0x5265c00", "tlc_min_value": "0x0", "tlc_max_value": "0x0", "tlc_fee_proportional_millionths": "0x3e8", "channel_count": "0x0", "pending_channel_count": "0x0", "peers_count": "0x0", "network_sync_status": "Running", "udt_cfg_infos": [{"name": "XUDT", "script": {"code_hash": "0xbb4469004225b39e983929db71fe2253cba1d49a76223e9e1d212cdca1f79f28", "hash_type": "type", "args": "0x.*"}, "auto_accept_amount": "0x3b9aca00", "cell_deps": [{"dep_type": "code", "tx_hash": "0xbf9cddee9210615b33d4ab6d24a0828390f5ae6bc46a3619817fdc8d1f4c9b8a", "index": "0x9"}]}]}, "id": 42}
+        {"jsonrpc": "2.0", "result": {"version": "0.1.0", "commit_hash": "07174b5", "pubkey": "03640b2a484786fd385813b250f910c5e4196acd62617dcf80a8f8797926c7d441", "node_name": null, "addresses": ["/ip4/127.0.0.1/tcp/8230"], "chain_hash": "0x7ba63bdb2f401e6a922a6a6200bbd898c3b179a3035d5534324232af7808296c", "open_channel_auto_accept_min_ckb_funding_amount": "0x3c5986200", "auto_accept_channel_ckb_funding_amount": "0x1718c7e00", "tlc_expiry_delta": "0x5265c00", "tlc_min_value": "0x0", "tlc_max_value": "0x0", "tlc_fee_proportional_millionths": "0x3e8", "channel_count": "0x0", "pending_channel_count": "0x0", "peers_count": "0x0", "network_sync_status": "Running", "udt_cfg_infos": [{"name": "XUDT", "script": {"code_hash": "0xbb4469004225b39e983929db71fe2253cba1d49a76223e9e1d212cdca1f79f28", "hash_type": "type", "args": "0x.*"}, "auto_accept_amount": "0x3b9aca00", "cell_deps": [{"dep_type": "code", "tx_hash": "0xbf9cddee9210615b33d4ab6d24a0828390f5ae6bc46a3619817fdc8d1f4c9b8a", "index": "0x9"}]}]}, "id": 42}
 
         Returns:
 
@@ -211,8 +211,8 @@ class FiberRPCClient:
     def remove_watch_channel(self, param):
         return self.call("remove_watch_channel", [param])
 
-    def get_peer_id(self):
-        return self.node_info()["addresses"][0].split("/")[-1]
+    def get_pubkey(self):
+        return self.node_info()["pubkey"]
 
     def list_peers(self):
         return self.call("list_peers", [])
@@ -256,9 +256,9 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     fiber2_node_info = fiber2.node_info()
     fiber1.connect_peer({"address": fiber2_node_info["addresses"][0]})
     time.sleep(2)
-    fiber2_peer_id = fiber2_node_info["addresses"][0].split("/")[-1]
+    fiber2_pubkey = fiber2_node_info["pubkey"]
     open_channel_config = {
-        "peer_id": fiber2_peer_id,
+        "pubkey": fiber2_pubkey,
         "funding_amount": hex(capacity*CKB_UNIT),
         "tlc_fee_proportional_millionths": hex(1000),
         "public": True,
@@ -267,7 +267,7 @@ def open_channel(fiber1, fiber2, capacity,udt=None):
     try:
         fiber1.open_channel(open_channel_config)
         time.sleep(2)
-        wait_for_channel_state(fiber1, fiber2_peer_id, "CHANNEL_READY",timeout=60)
+        wait_for_channel_state(fiber1, fiber2_pubkey, "CHANNEL_READY",timeout=60)
     except Exception as e:
         print(f"open channel failed:{e}")
     try:
@@ -280,7 +280,7 @@ def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
         try:
             payment = fiber1.send_payment(
                 {
-                    "target_pubkey": fiber2.node_info()["node_id"],
+                    "target_pubkey": fiber2.node_info()["pubkey"],
                     "amount": hex(amount),
                     "keysend": True,
                     "allow_self_payment": True,
@@ -297,7 +297,7 @@ def send_payment(fiber1, fiber2, amount, wait=True, udt=None, try_count=5):
             continue
     payment = fiber1.send_payment(
         {
-            "target_pubkey": fiber2.node_info()["node_id"],
+            "target_pubkey": fiber2.node_info()["pubkey"],
             "amount": hex(amount),
             "keysend": True,
             "allow_self_payment": True,
@@ -377,7 +377,7 @@ def wait_payment_state(
 
 def wait_for_channel_state(
     client,
-    peer_id,
+    pubkey,
     expected_state,
     timeout=120,
     include_closed=False,
@@ -391,7 +391,7 @@ def wait_for_channel_state(
     """
     for _ in range(timeout):
         channels = client.list_channels(
-            {"peer_id": peer_id, "include_closed": include_closed}
+            {"pubkey": pubkey, "include_closed": include_closed}
         )
         if len(channels["channels"]) == 0:
             time.sleep(1)

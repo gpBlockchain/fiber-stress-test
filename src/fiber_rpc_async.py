@@ -140,9 +140,9 @@ async def open_channel_async(fiber1, fiber2, capacity, udt=None):
     fiber2_node_info = await fiber2.node_info()
     await fiber1.connect_peer({"address": fiber2_node_info["addresses"][0]})
     await asyncio.sleep(2)
-    fiber2_peer_id = fiber2_node_info["addresses"][0].split("/")[-1]
+    fiber2_pubkey = fiber2_node_info["pubkey"]
     open_channel_config = {
-        "peer_id": fiber2_peer_id,
+        "pubkey": fiber2_pubkey,
         "funding_amount": hex(capacity*CKB_UNIT),
         "tlc_fee_proportional_millionths": hex(1000),
         "public": True,
@@ -151,7 +151,7 @@ async def open_channel_async(fiber1, fiber2, capacity, udt=None):
     try:
         await fiber1.open_channel(open_channel_config)
         await asyncio.sleep(2)
-        await wait_for_channel_state_async(fiber1, fiber2_peer_id, "CHANNEL_READY", timeout=60)
+        await wait_for_channel_state_async(fiber1, fiber2_pubkey, "CHANNEL_READY", timeout=60)
     except Exception as e:
         LOGGER.error(f"open channel failed:{e}")
     try:
@@ -166,7 +166,7 @@ async def send_payment_async(fiber1, fiber2, amount, wait=True, udt=None, try_co
             node_info = await fiber2.node_info()
             payment = await fiber1.send_payment(
                 {
-                    "target_pubkey": node_info["node_id"],
+                    "target_pubkey": node_info["pubkey"],
                     "amount": hex(amount),
                     "keysend": True,
                     "allow_self_payment": True,
@@ -186,7 +186,7 @@ async def send_payment_async(fiber1, fiber2, amount, wait=True, udt=None, try_co
     node_info = await fiber2.node_info()
     payment = await fiber1.send_payment(
         {
-            "target_pubkey": node_info["node_id"],
+            "target_pubkey": node_info["pubkey"],
             "amount": hex(amount),
             "keysend": True,
             "allow_self_payment": True,
@@ -259,20 +259,20 @@ async def wait_payment_state_async(
 
 
 async def wait_for_channel_state_async(
-    client, peer_id, status="CHANNEL_READY", timeout=360, interval=1
+    client, pubkey, status="CHANNEL_READY", timeout=360, interval=1
 ):
     for i in range(timeout):
         try:
-            channels = await client.list_channels({"peer_id": peer_id})
+            channels = await client.list_channels({"pubkey": pubkey})
             for channel in channels["channels"]:
-                if channel["peer_id"] == peer_id:
+                if channel["pubkey"] == pubkey:
                     if channel["state"]["state_name"] == status:
                         return
         except Exception as e:
             LOGGER.debug(f"Error checking channel state: {e}")
         await asyncio.sleep(interval)
     raise TimeoutError(
-        f"Channel with peer {peer_id} did not reach status {status} within {timeout} seconds"
+        f"Channel with pubkey {pubkey} did not reach status {status} within {timeout} seconds"
     )
 
 
