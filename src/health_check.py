@@ -47,12 +47,12 @@ def health_check(config):
                     })
                     wait_payment_state(fibers_config.fibersMap[key], payment["payment_hash"], "Success",timeout=150, interval=0.1)
                     end_time = time.time()
-                    print(f"cur id:{key} channel id:{channel['channel_id']}remote pubkey:{channel['pubkey']} payment:{payment['payment_hash']},fee:{payment['fee']} success cost time:{end_time-begin_time}")
+                    print(f"cur id:{key} channel id:{channel['channel_id']} remote pubkey:{channel['pubkey']} payment:{payment['payment_hash']},fee:{payment['fee']} success cost time:{end_time-begin_time}")
                     msgs[key]["payment_success_size"] += 1
                     # 打印一些日志
                 except Exception as e:
-                    print(f"cur id:{key} channel id:{channel['channel_id']}remote pubkey:{channel['pubkey']} payment failed:",e)
-                    msgs[key]["payment_err"].append(f"channel id:{channel['channel_id']}remote pubkey:{channel['pubkey']} payment failed:{e}")
+                    print(f"cur id:{key} channel id:{channel['channel_id']} remote pubkey:{channel['pubkey']} payment failed:",e)
+                    msgs[key]["payment_err"].append(f"channel id:{channel['channel_id']} remote pubkey:{channel['pubkey']} payment failed:{e}")
                     msgs[key]["payment_failed_size"] += 1
         print("===============================检查结果===============================")
         for key in msgs.keys():

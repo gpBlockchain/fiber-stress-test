@@ -30,7 +30,7 @@ def connect_channel_nodes(config):
                     pubkey = channel['pubkey']
                     if pubkey not in peers:
                         print(f"connect {key} not found {pubkey}")
-                        if pubkey_map.get(pubkey) == None:
+                        if pubkey_map.get(pubkey) is None:
                             print(f"connect {key} not found {pubkey} in pubkey_map")
                             continue
                         fiber.connect_peer({
