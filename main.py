@@ -18,6 +18,7 @@ from src.graph_channel_info import graph_channels_info
 from src.blance_channel import balance_channels
 from src.blance_channel_async import balance_channels_async
 from src.check_shutdown_msg import check_shutdown_msg
+from src.reconnect import reconnect
 
 
 def main():
@@ -31,7 +32,7 @@ def main():
     
     parser = argparse.ArgumentParser(description="Fiber Stress Test Tool")
     parser.add_argument('config', help='Path to the configuration file.')
-    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown','force_shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check','graph_channels_info','balance_channels','check_shutdown_msg'], help='The command to execute.')
+    parser.add_argument('command', choices=['connect_to', 'transfer', 'shutdown','force_shutdown', 'check_connect', 'check_balance', 'change_config', 'info', 'health_check','connect_channel_nodes','balance_check','shutdown_check','graph_channels_info','balance_channels','check_shutdown_msg','reconnect'], help='The command to execute.')
 
     args = parser.parse_args()
 
@@ -79,6 +80,8 @@ def main():
         asyncio.run(balance_channels_async(config))
     elif args.command == 'check_shutdown_msg':
         check_shutdown_msg(config)
+    elif args.command == 'reconnect':
+        reconnect(config)
 
 
 if __name__ == '__main__':
